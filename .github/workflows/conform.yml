@@ -1,0 +1,12 @@
+---
+name: Conform
+on: [pull_request]
+jobs:
+  conform:
+    name: Conform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Conform Action
+        uses: talos-systems/conform
