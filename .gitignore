@@ -1,0 +1,6 @@
+*.DS_Store
+.extra
+*.log
+*.swp
+.uuid
+ssh/config

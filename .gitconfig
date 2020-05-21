@@ -1,0 +1,14 @@
+[user]
+	signingkey = 0x8C649FA0D2396E42
+	name = Lewis Denham-Parry
+	email = lewis@control-plane.io
+[commit]
+	gpgsign = true
+	template = /home/lewis/.config/git/commit.txt
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[alias]
+    lb = !git reflog show --pretty=format:'%gs ~ %gd' --date=relative | grep 'checkout:' | grep -oE '[^ ]+ ~ .*' | awk -F~ '!seen[$1]++' | head -n 10 | awk -F' ~ HEAD@{' '{printf(\"  \\033[33m%s: \\033[37m %s\\033[0m\\n\", substr($2, 1, length($2)-1), $1)}'
