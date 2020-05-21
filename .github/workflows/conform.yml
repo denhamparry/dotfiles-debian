@@ -9,4 +9,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Conform Action
-        uses: talos-systems/conform
+        uses: talos-systems/conform@cea1ee9
