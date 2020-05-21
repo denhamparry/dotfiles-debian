@@ -4,7 +4,7 @@ ZSH_THEME="agnoster"
 
 export FZF_BASE=~/.fzf/
 
-plugins=(fzf git per-directory-history zsh-syntax-highlighting zsh-autosuggestions zsh-completions zsh-z)
+plugins=(fzf git per-directory-history zsh-syntax-highlighting zsh-autosuggestions zsh-completions zsh-z tmux) 
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.aliases
@@ -45,3 +45,5 @@ if [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]; then
 	export GPG_TTY
 fi
 
+# tmux
+ZSH_TMUX_AUTOSTART=true
