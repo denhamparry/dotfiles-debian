@@ -219,6 +219,7 @@ base() {
 		iwd \
 		i3blocks \
 		i3lock-fancy \
+		inotify-tools \
 		imagemagick \
 		kubectl \
 		libapparmor-dev \
