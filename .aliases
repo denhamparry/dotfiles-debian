@@ -49,6 +49,9 @@ alias gc="gitdate && git commit -v "
 alias gs="git status"
 alias gp="git push"
 
+# Development
+alias tasks='git grep -EI "TODO|FIXME"'
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"
