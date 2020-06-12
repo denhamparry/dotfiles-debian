@@ -48,6 +48,7 @@ alias gf="git fetch --all && git rebase origin/master"
 alias gc="gitdate && git commit -v "
 alias gs="git status"
 alias gp="git push"
+alias gitrepos="find . -type d -exec sh -c 'cd "{}"; git rev-parse --git-dir 2> /dev/null 1>&2' \; -prune -print"
 
 # Development
 alias tasks='git grep -EI "TODO|FIXME"'
