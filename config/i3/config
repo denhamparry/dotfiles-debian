@@ -222,9 +222,6 @@ for_window [class="^.*"] border pixel 2
 # compton
 exec_always compton --backend glx --vsync opengl-swc
 
-# dunst
-exec --no-startup-id dunst --config ~/.config/dunst/dunst.conf
-
 # screenshots
 # Multi-screen screenshots with scrot - All Screens
 bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`'
