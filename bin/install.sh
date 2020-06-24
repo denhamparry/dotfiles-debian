@@ -53,24 +53,9 @@ setup_sources_min() {
 	deb-src http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
 	EOF
 
-	# iovisor/bcc-tools
-	cat <<-EOF > /etc/apt/sources.list.d/iovisor.list
-	deb https://repo.iovisor.org/apt/xenial xenial main
-	EOF
-
-	# add the git-core ppa gpg key
-	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys E1DD270288B4E6030699E45FA1715D88E1DF1F24
-
-	# add the iovisor/bcc-tools gpg key
-	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 648A4A16A23015EEF4A66B8E4052245BD4284CDD
-
 	# turn off translations, speed up apt update
 	mkdir -p /etc/apt/apt.conf.d
 	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
-
-	# Spotify
-	curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add - 
-	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 }
 
 # sets up apt sources
@@ -132,7 +117,9 @@ setup_sources() {
 	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 6B283E95745A6D903009F7CA641EED65CD4E8809
 
 	# kubectl
-	echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+	cat <<-EOF > /etc/apt/sources.list.d/kubernetes.list
+	deb https://apt.kubernetes.io/ kubernetes-xenial main
+	EOF
 }
 
 base_min() {
