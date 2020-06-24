@@ -201,6 +201,7 @@ base() {
 		hplip \
 		iwd \
 		imagemagick \
+		kitty \
 		kubectl \
 		libapparmor-dev \
 		libimobiledevice6 \
@@ -459,7 +460,7 @@ main() {
 		get_user
 
 		# setup /etc/apt/sources.list
-		setup_sources
+		# setup_sources
 
 		base
 	elif [[ $cmd == "basemin" ]]; then
