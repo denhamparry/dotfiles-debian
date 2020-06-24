@@ -18,7 +18,6 @@ dotfiles: ## Installs the dotfiles.
 	done; \
 	mkdir -p $(HOME)/.gnupg && mkdir -p $(HOME)/.config;
 	gpg --list-keys || true;
-	sudo ln -sfn $(CURDIR)/config/X11/xorg.conf /etc/X11/xorg.conf;
 	ln -sfn $(CURDIR)/config/git/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
 	ln -sfn $(CURDIR)/bin $(HOME)/bin
