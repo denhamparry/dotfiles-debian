@@ -54,11 +54,16 @@ install_essentials() {
 	sudo apt install -y curl git
 }
 
-# Install scripts for bin
-install_scripts() {
+# Setup Dotfiles (and Vim)
+install_dotfiles() {
+	# Setup Dotfiles
 	cd ~
-	# using ssh for personal automation
+	using ssh for personal automation
 	git clone git@github.com:denhamparry/dotfiles.git
+	#Setup Vim
+	git clone --recursive https://github.com/denhamparry/.vim.git .vim
+	cd ~/.vim
+	make install update-vundle
 }
 
 usage() {
@@ -87,8 +92,8 @@ main() {
 		check_is_sudo
 		install_essentials
 
-	elif [[ $cmd == "scripts" ]]; then
-		install_scripts
+	elif [[ $cmd == "dotfiles" ]]; then
+		install_dotfiles
 
 	elif [[ $cmd == "all" ]]; then
 		check_is_sudo

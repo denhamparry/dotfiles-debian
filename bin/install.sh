@@ -183,7 +183,6 @@ base_min() {
 		vim \
 		xz-utils \
 		zip \
-		zsh \
 		--no-install-recommends
 
 	apt autoremove
@@ -683,3 +682,14 @@ main() {
 }
 
 main "$@"
+
+# REVIEW TO ADD 
+
+    # # speed test from the cli
+    # curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py  > /usr/local/bin/speedtest
+	# chmod +x /usr/local/bin/speedtest
+	# # install icdiff / improve colour of git commits - github.com/jeffkaufman/icdiff
+	# curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/icdiff > /usr/local/bin/icdiff
+	# curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/git-icdiff > /usr/local/bin/git-icdiff
+	# chmod +x /usr/local/bin/icdiff
+	# chmod +x /usr/local/bin/git-icdiff
