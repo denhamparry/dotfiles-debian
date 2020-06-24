@@ -100,7 +100,7 @@ main() {
 		get_user
         setup_sudo
 		install_essentials
-		install_scripts
+		install_dotfiles
 	
 	else
 		usage
