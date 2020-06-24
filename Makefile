@@ -1,5 +1,5 @@
 .PHONY: all
-all: bin  ## Installs the bin and etc directory files and the dotfiles.
+all: bin dotfiles## Installs the bin and etc directory files and the dotfiles.
 
 .PHONY: bin
 bin: ## Installs the bin directory files.
@@ -12,24 +12,17 @@ bin: ## Installs the bin directory files.
 .PHONY: dotfiles
 dotfiles: ## Installs the dotfiles.
 	# add aliases for dotfiles
-	for file in $(shell find $(CURDIR) -name ".*" -not -name ".vscode-insiders" -not -name ".gitignore" -not -name ".travis.yml" -not -name ".git" -not -name ".*.swp" -not -name ".gnupg" -not -name "ln" -not -name "scripts" ); do \
+	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".git" -not -name ".*.swp" -not -name ".gnupg" -not -name "ln" -not -name "scripts" ); do \
 		f=$$(basename $$file); \
 		ln -sfn $$file $(HOME)/$$f; \
 	done; \
+	mkdir -p $(HOME)/.gnupg && mkdir -p $(HOME)/.config;
 	gpg --list-keys || true;
-	ln -sfn $(CURDIR)/.vscode-insiders/settings.json $(HOME)/.vscode-insiders/settings.json;
-	ln -sfn $(CURDIR)/ssh/config $(HOME)/.ssh/config;
-	sudo ln -sfn $(CURDIR)/ln/xorg.conf /etc/X11/xorg.conf;
+	sudo ln -sfn $(CURDIR)/config/X11/xorg.conf /etc/X11/xorg.conf;
 	ln -sfn $(CURDIR)/config/git/ $(HOME)/.config/;
-	mkdir -p $(HOME)/.gnupg && ln -sfn $(CURDIR)/config/gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
-	mkdir -p $(HOME)/.config;
-	ln -sfn $(CURDIR)/config/i3 $(HOME)/.config/;
-	ln -sfn $(CURDIR)/config/polybar $(HOME)/.config/;
-	ln -sfn $(CURDIR)/config/dunst $(HOME)/.config/;
+	ln -sfn $(CURDIR)/config/gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
 	ln -sfn $(CURDIR)/bin $(HOME)/bin
 	ln -sfn $(CURDIR)/background.jpg $(HOME)/Pictures/background.jpg
-	mkdir -p $(HOME)/.config/gtk-3.0 && ln -sfn $(CURDIR)/config/gtk-3.0/settings.ini $(HOME)/.config/gtk-3.0/settings.ini;
-	# git config --global commit.template ~/.config/git/commit.txt
 
 .PHONY: test
 test: shellcheck ## Runs all the tests on the files in the repository.

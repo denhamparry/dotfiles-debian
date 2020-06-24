@@ -49,60 +49,29 @@ setup_sudo() {
 	echo -e "\\n# tmpfs for downloads\\ntmpfs\\t/home/${TARGET_USER}/Downloads\\ttmpfs\\tnodev,nosuid,size=5G\\t0\\t0" >> /etc/fstab
 }
 
-# Install scripts for bin
-install_scripts() {
-    # speed test from the cli
-    curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py  > /usr/local/bin/speedtest
-	chmod +x /usr/local/bin/speedtest
-	# install icdiff / improve colour of git commits - github.com/jeffkaufman/icdiff
-	curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/icdiff > /usr/local/bin/icdiff
-	curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/git-icdiff > /usr/local/bin/git-icdiff
-	chmod +x /usr/local/bin/icdiff
-	chmod +x /usr/local/bin/git-icdiff
-	# install lolcat
-	curl -sSL https://raw.githubusercontent.com/tehmaze/lolcat/master/lolcat > /usr/local/bin/lolcat
-	chmod +x /usr/local/bin/lolcat
+# Install essentials
+install_essentials() {
+	sudo apt install -y curl git
 }
 
-# install graphics drivers
-install_graphics() {
-	local system=$1
-
-	if [[ -z "$system" ]]; then
-		echo "You need to specify whether it's intel, geforce or optimus"
-		exit 1
-	fi
-
-	local pkgs=( xorg xserver-xorg xserver-xorg-input-libinput xserver-xorg-input-synaptics )
-
-	case $system in
-		"intel")
-			pkgs+=( xserver-xorg-video-intel )
-			;;
-		"geforce")
-			pkgs+=( nvidia-driver )
-			;;
-		"optimus")
-			pkgs+=( nvidia-kernel-dkms bumblebee-nvidia primus )
-			;;
-		*)
-			echo "You need to specify whether it's intel, geforce or optimus"
-			exit 1
-			;;
-	esac
-
-	apt update || true
-	apt -y upgrade
-
-	apt install -y "${pkgs[@]}" --no-install-recommends
+# Setup Dotfiles (and Vim)
+install_dotfiles() {
+	# Setup Dotfiles
+	cd ~
+	using ssh for personal automation
+	git clone git@github.com:denhamparry/dotfiles.git
+	#Setup Vim
+	git clone --recursive https://github.com/denhamparry/.vim.git .vim
+	cd ~/.vim
+	make install update-vundle
 }
 
 usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for a debian laptop\\n"
 	echo "Usage:"
 	echo "  sudouser                                - setup user as sudo"
+	echo "  essentials								- install essential tools"
 	echo "  scripts                                 - setup bin scripts"
-	echo "  graphics								- install grpahics driver"
 
 }
 
@@ -119,13 +88,19 @@ main() {
 		get_user
         setup_sudo
 
-	elif [[ $cmd == "scripts" ]]; then
+	elif [[ $cmd == "essentials" ]]; then
 		check_is_sudo
-		install_scripts
+		install_essentials
 
-	elif [[ $cmd == "graphics" ]]; then
+	elif [[ $cmd == "dotfiles" ]]; then
+		install_dotfiles
+
+	elif [[ $cmd == "all" ]]; then
 		check_is_sudo
-		install_graphics "$2"
+		get_user
+        setup_sudo
+		install_essentials
+		install_dotfiles
 	
 	else
 		usage

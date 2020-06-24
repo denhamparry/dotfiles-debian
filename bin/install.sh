@@ -53,24 +53,9 @@ setup_sources_min() {
 	deb-src http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
 	EOF
 
-	# iovisor/bcc-tools
-	cat <<-EOF > /etc/apt/sources.list.d/iovisor.list
-	deb https://repo.iovisor.org/apt/xenial xenial main
-	EOF
-
-	# add the git-core ppa gpg key
-	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys E1DD270288B4E6030699E45FA1715D88E1DF1F24
-
-	# add the iovisor/bcc-tools gpg key
-	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 648A4A16A23015EEF4A66B8E4052245BD4284CDD
-
 	# turn off translations, speed up apt update
 	mkdir -p /etc/apt/apt.conf.d
 	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
-
-	# Spotify
-	curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add - 
-	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 }
 
 # sets up apt sources
@@ -132,7 +117,9 @@ setup_sources() {
 	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 6B283E95745A6D903009F7CA641EED65CD4E8809
 
 	# kubectl
-	echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+	cat <<-EOF > /etc/apt/sources.list.d/kubernetes.list
+	deb https://apt.kubernetes.io/ kubernetes-xenial main
+	EOF
 }
 
 base_min() {
@@ -172,7 +159,6 @@ base_min() {
 		net-tools \
 		policykit-1 \
 		silversearcher-ag \
-		spotify-client 
 		ssh \
 		strace \
 		sudo \
@@ -183,7 +169,6 @@ base_min() {
 		vim \
 		xz-utils \
 		zip \
-		zsh \
 		--no-install-recommends
 
 	apt autoremove
@@ -196,7 +181,6 @@ base_min() {
 # installs base packages
 # the utter bare minimal shit
 base() {
-	base_min;
 
 	apt update || true
 	apt -y upgrade
@@ -205,7 +189,6 @@ base() {
 		apparmor \
 		bridge-utils \
 		cgroupfs-mount \
-		cowsay \
 		compton \
 		forensics-all \
 		fwupd \
@@ -217,8 +200,6 @@ base() {
 		graphviz \
 		hplip \
 		iwd \
-		i3blocks \
-		i3lock-fancy \
 		imagemagick \
 		kubectl \
 		libapparmor-dev \
@@ -227,8 +208,6 @@ base() {
 		libnotify-bin \
 		libpam-systemd \
 		libseccomp-dev \
-		lxapperance \
-		mosh \
 		neovim \
 		parallel \
 		pinentry-curses \
@@ -249,48 +228,6 @@ base() {
 	pip install legit
 }
 
-# install and configure dropbear
-install_dropbear() {
-	apt update || true
-	apt -y upgrade
-
-	apt install -y \
-		dropbear-initramfs \
-		--no-install-recommends
-
-	apt autoremove
-	apt autoclean
-	apt clean
-
-	# change the default port and settings
-	echo 'DROPBEAR_OPTIONS="-p 4748 -s -j -k -I 60"' >> /etc/dropbear-initramfs/config
-
-	# update the authorized keys
-	cp "/home/${TARGET_USER}/.ssh/authorized_keys" /etc/dropbear-initramfs/authorized_keys
-	sed -i 's/ssh-/no-port-forwarding,no-agent-forwarding,no-X11-forwarding,command="\/bin\/cryptroot-unlock" ssh-/g' /etc/dropbear-initramfs/authorized_keys
-
-	echo
-	echo "Updated config in /etc/dropbear-initramfs/config:"
-	cat /etc/dropbear-initramfs/config
-	echo
-
-	echo "Updated authorized_keys in /etc/dropbear-initramfs/authorized_keys:"
-	cat /etc/dropbear-initramfs/authorized_keys
-	echo
-
-	echo "Dropbear has been installed and configured."
-	echo
-	echo "You will now want to update your initramfs:"
-	printf "\\tupdate-initramfs -u\\n"
-}
-
-# setup sudo for a user
-# because fuck typing that shit all the time
-# just have a decent password
-# and lock your computer when you aren't using it
-# if they have your password they can sudo anyways
-# so its pointless
-# i know what the fuck im doing ;)
 setup_sudo() {
 	# add user to sudoers
 	adduser "$TARGET_USER" sudo
@@ -439,39 +376,6 @@ install_golang() {
 	sudo ln -snf "${GOPATH}/bin/weather" /usr/local/bin/weather
 }
 
-# install graphics drivers
-install_graphics() {
-	local system=$1
-
-	if [[ -z "$system" ]]; then
-		echo "You need to specify whether it's intel, geforce or optimus"
-		exit 1
-	fi
-
-	local pkgs=( xorg xserver-xorg xserver-xorg-input-libinput xserver-xorg-input-synaptics )
-
-	case $system in
-		"intel")
-			pkgs+=( xserver-xorg-video-intel )
-			;;
-		"geforce")
-			pkgs+=( nvidia-driver )
-			;;
-		"optimus")
-			pkgs+=( nvidia-kernel-dkms bumblebee-nvidia primus )
-			;;
-		*)
-			echo "You need to specify whether it's intel, geforce or optimus"
-			exit 1
-			;;
-	esac
-
-	apt update || true
-	apt -y upgrade
-
-	apt install -y "${pkgs[@]}" --no-install-recommends
-}
-
 # install custom scripts/binaries
 install_scripts() {
 	# install speedtest
@@ -505,80 +409,6 @@ install_scripts() {
 	done
 }
 
-# install stuff for i3 window manager
-install_wmapps() {
-	apt update || true
-	apt install -y \
-		bluez \
-		bluez-firmware \
-		feh \
-		i3 \
-		i3lock \
-		i3status \
-		pulseaudio \
-		pulseaudio-module-bluetooth \
-		pulsemixer \
-		rofi \
-		rxvt-unicode-256color \
-		scrot \
-		usbmuxd \
-		xclip \
-		xcompmgr \
-		--no-install-recommends
-
-}
-
-get_dotfiles() {
-	# create subshell
-	(
-	cd "$HOME"
-
-	if [[ ! -d "${HOME}/dotfiles" ]]; then
-		# install dotfiles from repo
-		git clone git@github.com:denhamparry/cp-dotfiles.git "${HOME}/dotfiles"
-	fi
-
-	cd "${HOME}/dotfiles"
-
-	# set the correct origin
-	git remote set-url origin git@github.com:denhamparry/cp-dotfiles.git
-
-	# installs all the things
-	make
-
-	# enable dbus for the user session
-	# systemctl --user enable dbus.socket
-
-	sudo systemctl enable "i3lock@${TARGET_USER}"
-
-	cd "$HOME"
-	mkdir -p ~/Pictures/Screenshots
-	)
-
-	install_vim;
-}
-
-install_vim() {
-	# create subshell
-	(
-	cd "$HOME"
-
-	# install .vim files
-	sudo rm -rf "${HOME}/.vim"
-	git clone --recursive git@github.com:jessfraz/.vim.git "${HOME}/.vim"
-	(
-	cd "${HOME}/.vim"
-	make install
-	)
-
-	# update alternatives to vim
-	sudo update-alternatives --install /usr/bin/vi vi "$(command -v vim)" 60
-	sudo update-alternatives --config vi
-	sudo update-alternatives --install /usr/bin/editor editor "$(command -v vim)" 60
-	sudo update-alternatives --config editor
-	)
-}
-
 install_tools() {
 	echo "Installing golang..."
 	echo
@@ -609,17 +439,11 @@ usage() {
 	echo "Usage:"
 	echo "  base                                - setup sources & install base pkgs"
 	echo "  basemin                             - setup sources & install base min pkgs"
-	echo "  graphics {intel, geforce, optimus}  - install graphics drivers"
-	echo "  wm                                  - install window manager/desktop pkgs"
-	echo "  dotfiles                            - get dotfiles"
-	echo "  vim                                 - install vim specific dotfiles"
 	echo "  golang                              - install golang and packages"
 	echo "  rust                                - install rust"
 	echo "  scripts                             - install scripts"
 	echo "  tools                               - install golang, rust, and scripts"
-	echo "  dropbear                            - install and configure dropbear initramfs"
 	echo "  emojis                            	- install emojis"
-	echo "  golang                              - install golang and packages"
 }
 
 main() {
@@ -683,3 +507,14 @@ main() {
 }
 
 main "$@"
+
+# REVIEW TO ADD 
+
+    # # speed test from the cli
+    # curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py  > /usr/local/bin/speedtest
+	# chmod +x /usr/local/bin/speedtest
+	# # install icdiff / improve colour of git commits - github.com/jeffkaufman/icdiff
+	# curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/icdiff > /usr/local/bin/icdiff
+	# curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/git-icdiff > /usr/local/bin/git-icdiff
+	# chmod +x /usr/local/bin/icdiff
+	# chmod +x /usr/local/bin/git-icdiff
