@@ -4,3 +4,5 @@
 *.swp
 .uuid
 ssh/config
+bin/aws
+bin/awscli
