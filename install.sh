@@ -56,14 +56,9 @@ install_essentials() {
 
 # Install scripts for bin
 install_scripts() {
-    # speed test from the cli
-    curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py  > /usr/local/bin/speedtest
-	chmod +x /usr/local/bin/speedtest
-	# install icdiff / improve colour of git commits - github.com/jeffkaufman/icdiff
-	curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/icdiff > /usr/local/bin/icdiff
-	curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/git-icdiff > /usr/local/bin/git-icdiff
-	chmod +x /usr/local/bin/icdiff
-	chmod +x /usr/local/bin/git-icdiff
+	cd ~
+	# using ssh for personal automation
+	git clone git@github.com:denhamparry/dotfiles.git
 }
 
 usage() {
@@ -93,7 +88,13 @@ main() {
 		install_essentials
 
 	elif [[ $cmd == "scripts" ]]; then
+		install_scripts
+
+	elif [[ $cmd == "all" ]]; then
 		check_is_sudo
+		get_user
+        setup_sudo
+		install_essentials
 		install_scripts
 	
 	else
