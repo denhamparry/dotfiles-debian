@@ -1,3 +1,4 @@
+---
 policies:
   - type: commit
     spec:
@@ -9,24 +10,16 @@ policies:
       body:
         required: true
       dco: false
-      gpg: false
+      gpg: true
       spellcheck:
-        locale: US
-      maximumOfOneCommit: true
+        locale: GB
       conventional:
         types:
-          - "type"
-        scopes:
-          - "scope"
-        descriptionLength: 72
-  - type: license
-    spec:
-      skipPaths:
-        - .git/
-        - .build*/
-      includeSuffixes:
-        - .ext
-      excludeSuffixes:
-        - .exclude-ext-prefix.ext
-      header: |
-        This is the contents of a license header.
+          - build
+          - chore
+          - docs
+          - feat
+          - refactor
+          - style
+          - fix
+          - test
