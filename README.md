@@ -201,3 +201,15 @@ $ rm code-insiders.deb
 #### References
 
 - [Code Insiders Deb](https://code.visualstudio.com/docs/?dv=linux64_deb&build=insiders)
+
+### Install PaperWM
+
+```bash
+$ git clone git@github.com:paperwm/PaperWM.git
+$ cd PaperWM
+$ ./install.sh
+```
+
+#### References
+
+- [PaperWM](https://github.com/paperwm/PaperWM)
