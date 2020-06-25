@@ -213,3 +213,45 @@ $ ./install.sh
 #### References
 
 - [PaperWM](https://github.com/paperwm/PaperWM)
+
+### Setup Bluetooth Headphones
+
+```bash
+$ sudo apt install pulseaudio pulseaudio-module-bluetooth pavucontrol bluez-firmware
+$ sudo service bluetooth restart
+$ sudo killall pulseaudio
+```
+
+#### Troubleshooting
+
+```bash
+$ sudo cat << EOF >> /var/lib/gdm3/.config/pulse/client.conf
+autospawn = no
+daemon-binary = /bin/true
+EOF
+$ sudo chown Debian-gdm:Debian-gdm /var/lib/gdm3/.config/pulse/client.conf
+$ rm /var/lib/gdm3/.config/systemd/user/sockets.target.wants/pulseaudio.socket
+$ sudo cat << EOF >> /etc/pulse/default.pa
+load-module module-switch-on-connect
+EOF
+$ sudo cat << EOF >> /var/lib/gdm3/.config/pulse/default.pa
+#!/usr/bin/pulseaudio -nF
+#
+
+# load system wide configuration
+.include /etc/pulse/default.pa
+
+### unload driver modules for Bluetooth hardware
+.ifexists module-bluetooth-policy.so
+  unload-module module-bluetooth-policy
+.endif
+
+.ifexists module-bluetooth-discover.so
+  unload-module module-bluetooth-discover
+.endif
+EOF
+```
+
+#### References
+
+- [a2dp](https://wiki.debian.org/BluetoothUser/a2dp)
