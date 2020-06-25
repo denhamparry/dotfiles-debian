@@ -268,3 +268,28 @@ $ sudo apt-get update && sudo apt-get install spotify-client
 
 - [Install Spotify on Linux](https://www.spotify.com/uk/download/linux/)
 
+### Install Switcher
+
+```bash
+$ mkdir -p ~/.local/share/gnome-shell/extensions 
+$ cd ~/.local/share/gnome-shell/extensions
+$ git clone https://github.com/daniellandau/switcher.git switcher@landau.fi
+```
+
+### References
+
+- [Switcher](https://github.com/daniellandau/switcher)
+
+### Install Dash to Dock
+
+```bash
+$ git clone https://github.com/micheleg/dash-to-dock.git
+$ cd dash-to-dock
+$ make
+$ make install
+```
+
+#### References
+
+- [Dash to Dock](https://micheleg.github.io/dash-to-dock)
+
