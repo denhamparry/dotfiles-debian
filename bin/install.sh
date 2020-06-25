@@ -35,8 +35,8 @@ check_is_sudo() {
 	fi
 }
 
+setup_sources() {
 
-setup_sources_min() {
 	apt update || true
 	apt install -y \
 		apt-transport-https \
@@ -46,22 +46,6 @@ setup_sources_min() {
 		gnupg2 \
 		lsb-release \
 		--no-install-recommends
-
-	# hack for latest git (don't judge)
-	cat <<-EOF > /etc/apt/sources.list.d/git-core.list
-	deb http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
-	deb-src http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
-	EOF
-
-	# turn off translations, speed up apt update
-	mkdir -p /etc/apt/apt.conf.d
-	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
-}
-
-# sets up apt sources
-# assumes you are going to use debian buster
-setup_sources() {
-	setup_sources_min;
 
 	cat <<-EOF > /etc/apt/sources.list
 	deb http://httpredir.debian.org/debian buster main contrib non-free
@@ -77,18 +61,9 @@ setup_sources() {
 	deb-src http://httpredir.debian.org/debian experimental main contrib non-free
 	EOF
 
-	# yubico
-	cat <<-EOF > /etc/apt/sources.list.d/yubico.list
-	deb http://ppa.launchpad.net/yubico/stable/ubuntu xenial main
-	deb-src http://ppa.launchpad.net/yubico/stable/ubuntu xenial main
-	EOF
-
-	# tlp: Advanced Linux Power Management
-	cat <<-EOF > /etc/apt/sources.list.d/tlp.list
-	# tlp: Advanced Linux Power Management
-	# http://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
-	deb http://repo.linrunner.de/debian sid main
-	EOF
+	# turn off translations, speed up apt update
+	mkdir -p /etc/apt/apt.conf.d
+	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
 
 	# Create an environment variable for the correct distribution
 	CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
@@ -106,15 +81,6 @@ setup_sources() {
 	cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
 	deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
 	EOF
-
-	# Import the Google Chrome public key
-	curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-
-	# add the yubico ppa gpg key
-	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 3653E21064B19D134466702E43D5C49532CBA1A9
-
-	# add the tlp apt-repo gpg key
-	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 6B283E95745A6D903009F7CA641EED65CD4E8809
 
 	# kubectl
 	cat <<-EOF > /etc/apt/sources.list.d/kubernetes.list
@@ -218,6 +184,7 @@ base() {
 		screenfetch \
 		shellcheck \
 		systemd \
+		tmux \
 		--no-install-recommends
 
 	setup_sudo
@@ -458,9 +425,9 @@ main() {
 	if [[ $cmd == "base" ]]; then
 		check_is_sudo
 		get_user
-
+		
 		# setup /etc/apt/sources.list
-		# setup_sources
+		setup_sources
 
 		base
 	elif [[ $cmd == "basemin" ]]; then
@@ -468,17 +435,9 @@ main() {
 		get_user
 
 		# setup /etc/apt/sources.list
-		setup_sources_min
+		setup_sources
 
 		base_min
-	elif [[ $cmd == "graphics" ]]; then
-		check_is_sudo
-
-		install_graphics "$2"
-	elif [[ $cmd == "wm" ]]; then
-		check_is_sudo
-
-		install_wmapps
 	elif [[ $cmd == "dotfiles" ]]; then
 		get_user
 		get_dotfiles
@@ -492,12 +451,6 @@ main() {
 		install_scripts
 	elif [[ $cmd == "tools" ]]; then
 		install_tools
-	elif [[ $cmd == "dropbear" ]]; then
-		check_is_sudo
-
-		get_user
-
-		install_dropbear
 	elif [[ $cmd == "emojis" ]]; then
 		install_emojis
 	elif [[ $cmd == "golang" ]]; then
@@ -508,14 +461,3 @@ main() {
 }
 
 main "$@"
-
-# REVIEW TO ADD 
-
-    # # speed test from the cli
-    # curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py  > /usr/local/bin/speedtest
-	# chmod +x /usr/local/bin/speedtest
-	# # install icdiff / improve colour of git commits - github.com/jeffkaufman/icdiff
-	# curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/icdiff > /usr/local/bin/icdiff
-	# curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/git-icdiff > /usr/local/bin/git-icdiff
-	# chmod +x /usr/local/bin/icdiff
-	# chmod +x /usr/local/bin/git-icdiff
