@@ -201,3 +201,108 @@ $ rm code-insiders.deb
 #### References
 
 - [Code Insiders Deb](https://code.visualstudio.com/docs/?dv=linux64_deb&build=insiders)
+
+### Install PaperWM
+
+```bash
+$ git clone git@github.com:paperwm/PaperWM.git
+$ cd PaperWM
+$ ./install.sh
+```
+
+#### References
+
+- [PaperWM](https://github.com/paperwm/PaperWM)
+
+### Setup Bluetooth Headphones
+
+```bash
+$ sudo apt install pulseaudio pulseaudio-module-bluetooth pavucontrol bluez-firmware
+$ sudo service bluetooth restart
+$ sudo killall pulseaudio
+```
+
+#### Troubleshooting
+
+```bash
+$ sudo cat << EOF >> /var/lib/gdm3/.config/pulse/client.conf
+autospawn = no
+daemon-binary = /bin/true
+EOF
+$ sudo chown Debian-gdm:Debian-gdm /var/lib/gdm3/.config/pulse/client.conf
+$ rm /var/lib/gdm3/.config/systemd/user/sockets.target.wants/pulseaudio.socket
+$ sudo cat << EOF >> /etc/pulse/default.pa
+load-module module-switch-on-connect
+EOF
+$ sudo cat << EOF >> /var/lib/gdm3/.config/pulse/default.pa
+#!/usr/bin/pulseaudio -nF
+#
+
+# load system wide configuration
+.include /etc/pulse/default.pa
+
+### unload driver modules for Bluetooth hardware
+.ifexists module-bluetooth-policy.so
+  unload-module module-bluetooth-policy
+.endif
+
+.ifexists module-bluetooth-discover.so
+  unload-module module-bluetooth-discover
+.endif
+EOF
+```
+
+#### References
+
+- [a2dp](https://wiki.debian.org/BluetoothUser/a2dp)
+
+### Install Spotify
+
+```bash
+$ curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add - 
+$ echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+$ sudo apt-get update && sudo apt-get install spotify-client
+```
+
+#### References
+
+- [Install Spotify on Linux](https://www.spotify.com/uk/download/linux/)
+
+### Install Switcher
+
+```bash
+$ mkdir -p ~/.local/share/gnome-shell/extensions 
+$ cd ~/.local/share/gnome-shell/extensions
+$ git clone https://github.com/daniellandau/switcher.git switcher@landau.fi
+```
+
+### References
+
+- [Switcher](https://github.com/daniellandau/switcher)
+
+### Install Dash to Dock
+
+```bash
+$ git clone https://github.com/micheleg/dash-to-dock.git
+$ cd dash-to-dock
+$ make
+$ make install
+```
+
+#### References
+
+- [Dash to Dock](https://micheleg.github.io/dash-to-dock)
+
+### Install Docker
+
+```bash
+$ sudo apt update
+$ sudo apt install apt-transport-https ca-certificates curl software-properties-common gnupg2
+$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+$ sudo apt update
+$ sudo apt install docker-ce
+$ sudo systemctl status docker
+$ docker -v
+$ sudo usermod -aG docker $USER
+```
