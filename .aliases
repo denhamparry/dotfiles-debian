@@ -162,23 +162,6 @@ alias cp-sec-test="ide ~/git/controlplane/cp-sec-test"
 # Create temp directory
 alias tmp=' cd $(mktemp -d)'
 
-# Terraform
-
-alias tf='terraform'
-alias tfi='terraform init'
-alias tfp='terraform plan'
-alias tfpd='terraform plan -destroy'
-alias tfa='terraform apply'
-alias tfaaa='terraform apply -auto-approve'
-alias tfs='terraform show'
-alias tfd='terraform destroy'
-alias tfdaa='terraform destroy -auto-approve'
-alias tft='terraform taint'
-alias tfut='terraform untaint'
-alias tfg='terraform graph'
-alias tfgd='terraform graph > graph.dot'
-alias tfimport='terraform import'
-
 # Notifications
 
 alias notify-off='gsettings set org.gnome.desktop.notifications show-banners false'
@@ -188,15 +171,8 @@ alias notify-on='gsettings set org.gnome.desktop.notifications show-banners true
 
 alias headphones='sudo service bluetooth restart'
 
-#tmp
-alias keyboard-gb='setxkbmap gb'
-
-# Manage keyboard
-alias keyboard="ibus-setup"
-
-# Open i3 config
-alias i3-config="ide ~/dotfiles/i3/config"
-
+# Docker
+alias wipedown-docker="docker system prune -a"
 
 #  _____ ___  ____   ___  
 # |_   _/ _ \|  _ \ / _ \ 
