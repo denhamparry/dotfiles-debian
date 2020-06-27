@@ -81,6 +81,7 @@ $ systemctl reboot
 
 - [Linux Config - Install Nvidia driver on Debian 10 Buster](https://linuxconfig.org/how-to-install-nvidia-driver-on-debian-10-buster-linux)
 - [Linux Config - Disable Nouveau](https://linuxconfig.org/how-to-disable-nouveau-nvidia-driver-on-ubuntu-18-04-bionic-beaver-linux)
+- [NVIDIA: how to install the latest video card drivers](https://easylinuxtipsproject.blogspot.com/p/nvidia.html?m=1)
 
 ### Install Wifi / Bluetooth
 
