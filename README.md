@@ -26,6 +26,24 @@ $ uname -a
 Boot failed, disconnected all devices when booting machine.
 Possible solution from [Lenovo](https://support.lenovo.com/br/en/solutions/ht508988)
 
+### Install specific kernel
+
+```bash
+$ sudo apt search linux-image
+$ sudo apt install linux-image-5.3.0-0.bpo.2-amd64
+$ sudo apt install linux-headers-5.3.0-0.bpo.2-amd64
+```
+
+### Remove a kernel
+
+- **NOTE**: do not remove current kernel (`$ uname -r`)
+
+```bash
+$ dpkg --list | grep linux-image
+$ sudo apt-get purge linux-image-x.x.x.x-xyz
+$ sudo update-grub2
+```
+
 #### References
 
 - [Stack Exchange - How to upgrade the Debian 10 kernel from backports](https://unix.stackexchange.com/questions/545601/how-to-upgrade-the-debian-10-kernel-from-backports-without-recompiling-it-from-s)
