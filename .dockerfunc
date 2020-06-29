@@ -1,11 +1,7 @@
 #!/bin/bash
-# Bash wrappers for docker run commands
 
 export DOCKER_REPO_PREFIX=denhamparry
 
-#
-# Helper Functions
-#
 dcleanup(){
 	local containers
 	mapfile -t containers < <(docker ps -aq 2>/dev/null)
