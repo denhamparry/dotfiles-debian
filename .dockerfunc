@@ -49,3 +49,15 @@ terraform(){
 		-e SSH_AUTH_SOCK \
 		${DOCKER_REPO_PREFIX}/terraform "$@"
 }
+
+terragrunt(){
+	docker run -it --rm \
+		-v "${HOME}:${HOME}:ro" \
+		-v "$(pwd):/apps" \
+		-v /tmp:/tmp \
+		--workdir /app \
+		--log-driver none \
+		-e GOOGLE_APPLICATION_CREDENTIALS \
+		-e SSH_AUTH_SOCK \
+		${DOCKER_REPO_PREFIX}/terragrunt:v0.23.30 "$@"
+}
