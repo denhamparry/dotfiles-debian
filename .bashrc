@@ -97,7 +97,8 @@ SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
 
-for file in ~/.{bash_prompt,aliases,functions,path,dockerfunc,extra,exports}; do
+# TODO add dockerfunc once tested
+for file in ~/.{bash_prompt,aliases,functions,path,extra,exports}; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
 		# shellcheck source=/dev/null
 		source "$file"
