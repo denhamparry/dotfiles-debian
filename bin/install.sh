@@ -373,6 +373,11 @@ install_scripts() {
 	curl -sSL https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64 > /usr/local/bin/hadolint
 	chmod +x /usr/local/bin/hadolint
 
+	# install conftest
+	wget https://github.com/open-policy-agent/conftest/releases/download/v0.21.0/conftest_0.21.0_Linux_x86_64.tar.gz
+	tar xzf conftest_0.21.0_Linux_x86_64.tar.gz
+	sudo mv conftest /usr/local/bin
+
 	local scripts=( have light )
 
 	for script in "${scripts[@]}"; do
