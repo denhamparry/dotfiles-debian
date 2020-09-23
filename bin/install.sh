@@ -364,10 +364,14 @@ install_scripts() {
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install
 
-	# instal aws cli
+	# install aws cli
 	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 	unzip awscliv2.zip
 	sudo ./aws/install
+
+	# install hadolint
+	curl -sSL https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64 > /usr/local/bin/hadolint
+	chmod +x /usr/local/bin/hadolint
 
 	local scripts=( have light )
 

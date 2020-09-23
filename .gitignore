@@ -6,3 +6,5 @@
 ssh/config
 bin/aws
 bin/awscli
+bin/kind
+bin/rbac-tool
