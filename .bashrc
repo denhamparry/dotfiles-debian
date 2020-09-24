@@ -116,7 +116,11 @@ source "${HOME}/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 # shellcheck source=/dev/null
 source <(kitty + complete setup bash)
 
+# shellcheck source=/dev/null
 source <(kubectl completion bash)
+
+# shellcheck source=/dev/null
+source "${HOME}/.local/bin/virtualenvwrapper.sh"
 
 # disable system bell
 if [ -n "$DISPLAY" ]; then
