@@ -364,6 +364,9 @@ install_scripts() {
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install
 
+	# install tmux plugin manager
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 	# install aws cli
 	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 	unzip awscliv2.zip
