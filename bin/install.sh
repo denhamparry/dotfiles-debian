@@ -344,6 +344,9 @@ install_golang() {
 
 	# symlink weather binary for motd
 	sudo ln -snf "${GOPATH}/bin/weather" /usr/local/bin/weather
+
+	# Control Plane
+	go get github.com/go-jira/jira/cmd/jira
 }
 
 # install custom scripts/binaries

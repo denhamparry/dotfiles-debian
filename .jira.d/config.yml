@@ -1,0 +1,3 @@
+endpoint: https://controlplane.atlassian.net
+user: lewis@control-plane.io
+password-source: keyring

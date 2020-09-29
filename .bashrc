@@ -122,6 +122,12 @@ source <(kubectl completion bash)
 # shellcheck source=/dev/null
 source "${HOME}/.local/bin/virtualenvwrapper.sh"
 
+# go
+export GO111MODULE=on
+
+# go-jira
+eval "$(jira --completion-script-bash)"
+
 # disable system bell
 if [ -n "$DISPLAY" ]; then
   xset b off
