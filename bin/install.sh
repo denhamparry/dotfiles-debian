@@ -123,6 +123,8 @@ base_min() {
 		make \
 		mount \
 		net-tools \
+		nodejs \
+		npm \
 		policykit-1 \
 		silversearcher-ag \
 		ssh \
@@ -399,6 +401,16 @@ install_scripts() {
 	done
 }
 
+install_npm() {
+	curl -sL https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh -o install_nvm.sh
+	chmod +x install_nvm.sh
+	./install_nvm.sh
+	rm install_nvm.sh
+	sourced
+	nvm install v14.12.0
+	npm install netlify-cli -g
+}
+
 install_tools() {
 	echo "Installing golang..."
 	echo
@@ -406,6 +418,11 @@ install_tools() {
 
 	echo
 	echo "Installing rust..."
+	echo
+	install_rust;
+
+	echo
+	echo "Installing npm..."
 	echo
 	install_rust;
 
@@ -431,6 +448,7 @@ usage() {
 	echo "  basemin                             - setup sources & install base min pkgs"
 	echo "  golang                              - install golang and packages"
 	echo "  rust                                - install rust"
+	echo "  npm                                 - install npm"
 	echo "  scripts                             - install scripts"
 	echo "  tools                               - install golang, rust, and scripts"
 	echo "  emojis                            	- install emojis"
@@ -469,6 +487,8 @@ main() {
 		install_rust
 	elif [[ $cmd == "golang" ]]; then
 		install_golang "$2"
+	elif [[ $cmd == "npm" ]]; then
+		install_npm
 	elif [[ $cmd == "scripts" ]]; then
 		install_scripts
 	elif [[ $cmd == "tools" ]]; then
