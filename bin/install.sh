@@ -157,6 +157,7 @@ base() {
 		cgroupfs-mount \
 		compton \
 		forensics-all \
+		ffmpeg \
 		fwupd \
 		fwupdate \
 		gettext \
@@ -176,6 +177,7 @@ base() {
 		libpam-systemd \
 		libseccomp-dev \
 		neovim \
+		obs-studio \
 		parallel \
 		pinentry-curses \
 		playerctl \
