@@ -8,3 +8,4 @@ bin/aws
 bin/awscli
 bin/kind
 bin/rbac-tool
+bin/terraform

@@ -381,6 +381,11 @@ install_scripts() {
 	tar xzf conftest_0.21.0_Linux_x86_64.tar.gz
 	sudo mv conftest /usr/local/bin
 
+	# Hashicorp
+	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+	sudo apt-get update && sudo apt-get install vault
+
 	local scripts=( have light )
 
 	for script in "${scripts[@]}"; do
