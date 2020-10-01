@@ -9,3 +9,4 @@ bin/awscli
 bin/kind
 bin/rbac-tool
 bin/terraform
+bin/exercism
