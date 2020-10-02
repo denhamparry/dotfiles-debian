@@ -415,6 +415,7 @@ install_npm() {
 	sourced
 	nvm install v14.12.0
 	npm install netlify-cli -g
+	npm install -g firebase-tools
 }
 
 install_tools() {
