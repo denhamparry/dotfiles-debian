@@ -179,6 +179,7 @@ base() {
 		libpam-systemd \
 		libseccomp-dev \
 		neovim \
+		nfs-common
 		obs-studio \
 		parallel \
 		pinentry-curses \
