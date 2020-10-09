@@ -41,6 +41,7 @@ alias h="history"
 # Git
 alias g="git "
 alias ga="git add -A"
+alias gap="git add -p"
 alias gamend="git add -A && git commit --amend --no-edit "
 alias gcc="git commit --amend -v "
 alias gco="git checkout"
