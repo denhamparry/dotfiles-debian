@@ -120,6 +120,9 @@ source <(kitty + complete setup bash)
 source <(kubectl completion bash)
 
 # shellcheck source=/dev/null
+source <(doctl completion bash)
+
+# shellcheck source=/dev/null
 source "${HOME}/.local/bin/virtualenvwrapper.sh"
 
 # go
