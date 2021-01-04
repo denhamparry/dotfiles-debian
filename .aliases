@@ -179,6 +179,12 @@ alias wipedown-docker="docker system prune -a"
 # Kubernetes
 alias kubedebug="kubectl run -it --rm --restart=Never alpine --image=alpine sh"
 
+# Battery Management
+alias battery='upower -i $(upower -e | grep 'BAT')'
+
+# Learn
+alias learn='code-insiders ~~/git/denhamparry/learn'
+
 #  _____ ___  ____   ___  
 # |_   _/ _ \|  _ \ / _ \ 
 #   | || | | | | | | | | |
