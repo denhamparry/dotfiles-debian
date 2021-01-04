@@ -95,6 +95,7 @@ base_min() {
 	apt install -y \
 		adduser \
 		automake \
+		autorandr \
 		bash-completion \
 		bc \
 		bzip2 \
@@ -126,6 +127,7 @@ base_min() {
 		nodejs \
 		npm \
 		policykit-1 \
+		screenkey \
 		silversearcher-ag \
 		ssh \
 		strace \
@@ -184,6 +186,7 @@ base() {
 		parallel \
 		pinentry-curses \
 		playerctl \
+		progress \
 		python3-pip \
 		scdaemon \
 		screenfetch \
