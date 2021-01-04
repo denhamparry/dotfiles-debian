@@ -185,6 +185,9 @@ alias battery='upower -i $(upower -e | grep 'BAT')'
 # Learn
 alias learn='code-insiders ~~/git/denhamparry/learn'
 
+# Templates
+alias template-bash='cp ~/dotfiles/templates/bash.sh .'
+
 #  _____ ___  ____   ___  
 # |_   _/ _ \|  _ \ / _ \ 
 #   | || | | | | | | | | |
