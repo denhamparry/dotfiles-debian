@@ -183,7 +183,7 @@ alias kubedebug="kubectl run -it --rm --restart=Never alpine --image=alpine sh"
 alias battery='upower -i $(upower -e | grep 'BAT')'
 
 # Learn
-alias learn='code-insiders ~~/git/denhamparry/learn'
+alias learn='code-insiders ~/git/denhamparry/learn/'
 
 # Templates
 alias template-bash='cp ~/dotfiles/templates/bash.sh .'
