@@ -166,8 +166,8 @@ alias tmp=' cd $(mktemp -d)'
 
 # Notifications
 
-alias notify-off='gsettings set org.gnome.desktop.notifications show-banners false'
-alias notify-on='gsettings set org.gnome.desktop.notifications show-banners true'
+alias notify-off='notify-send "DUNST_COMMAND_PAUSE"'
+alias notify-on='notify-send "DUNST_COMMAND_RESUME"'
 
 # Bluetooth
 
