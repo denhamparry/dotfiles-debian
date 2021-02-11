@@ -22,6 +22,7 @@ dotfiles: ## Installs the dotfiles.
 	ln -sfn $(CURDIR)/config/gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
 	ln -sfn $(CURDIR)/bin $(HOME)/bin
 	ln -sfn $(CURDIR)/background.jpg $(HOME)/Pictures/background.jpg
+	ln -sfn $(CURDIR)/config/i3/ $(HOME)/.config/;
 
 .PHONY: test
 test: shellcheck ## Runs all the tests on the files in the repository.
