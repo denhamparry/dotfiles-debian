@@ -184,7 +184,12 @@ bar {
 	status_command $barcmd --config ~/.config/i3/status.conf
 }
 
+# Set desktop background
 exec --no-startup-id feh --bg-scale ~/Pictures/background.jpg
 
 exec xrdb -merge $HOME/.Xresources
 exec xrdb -merge $HOME/.Xdefaults
+
+# Scrolling like a mac, scrolling like a mac... SNOOP
+exec --no-startup-id synclient HorizEdgeScroll=1 VertEdgeScroll=1 VertScrollDelta=-60
+
