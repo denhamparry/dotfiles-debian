@@ -10,3 +10,4 @@ bin/kind
 bin/rbac-tool
 bin/terraform
 bin/exercism
+config/i3/logfile
