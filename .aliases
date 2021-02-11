@@ -188,6 +188,9 @@ alias learn='code-insiders ~/git/denhamparry/learn/'
 # Templates
 alias template-bash='cp ~/dotfiles/templates/bash.sh .'
 
+# Close i3
+alias stopx="i3-msg exit"
+
 # Lock the screen (when going AFK)
 alias afk="i3lock -c 000000"
 
