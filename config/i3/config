@@ -3,7 +3,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $term /usr/bin/kitty
+set $term /usr/bin/kitty tmux attach
 set $lockcmd i3lock
 set $menu rofi -show drun -theme "solarized_alternate"
 set $barcmd i3status
