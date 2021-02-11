@@ -130,15 +130,14 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+Ctrl+greater move workspace to output right
 bindsym $mod+Ctrl+less move workspace to output left
 
-# audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
-bindsym XF86AudioMicMute exec amixer set Capture toggle # mute mic
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 3 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 3 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-# screen brightness controls
-bindsym XF86MonBrightnessUp exec sudo light -A 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec sudo light -U 5 # decrease screen brightness
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 # Screenshots
 bindsym Print exec "scrot -q 100 ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' | xclip -i -selection clipboard'"
@@ -184,6 +183,8 @@ bar {
 	font pango:monospace 5
 	status_command $barcmd --config ~/.config/i3/status.conf
 }
+
+exec --no-startup-id feh --bg-scale ~/Pictures/background.jpg
 
 exec xrdb -merge $HOME/.Xresources
 exec xrdb -merge $HOME/.Xdefaults
