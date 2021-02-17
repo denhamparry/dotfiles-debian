@@ -1,0 +1,20 @@
+#!/bin/bash
+##############################################################################
+# update-youtubedl
+# -----------
+# Update youtube-dl to latest version direct from website
+#
+# :authors: Lewis Denham-Parry, @denhamparry
+# :date: 17 Feb 2021
+# :version: 0.0.1
+##############################################################################
+set -e
+set -o pipefail
+
+update-youtubedl(){
+    sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+    sudo chmod a+rx /usr/local/bin/youtube-dl
+    youtube-dl -U
+}
+
+update-youtubedl "$@"
