@@ -140,8 +140,9 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 # Screenshots
-bindsym Print exec "scrot -q 100 ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' | xclip -i -selection clipboard'"
-bindsym Shift+Print exec "scrot -q 100 -u ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' | xclip -i -selection clipboard'"
+bindsym Print exec "scrot -q 100 ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e 'gsutil cp -a public-read $f gs://misc.denhamparry.co.uk/screenshots/ && echo https://storage.googleapis.com/misc.denhamparry.co.uk/screenshots/$n | xclip -i -selection clipboard'"
+bindsym $mod+Print exec "sleep 0.4; scrot -q 100 -s ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e 'gsutil cp -a public-read $f gs://misc.denhamparry.co.uk/screenshots/ && echo https://storage.googleapis.com/misc.denhamparry.co.uk/screenshots/$n | xclip -i -selection clipboard'"
+bindsym Shift+Print exec "scrot -q 100 -u ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e 'gsutil cp -a public-read $f gs://misc.denhamparry.co.uk/screenshots/ && echo https://storage.googleapis.com/misc.denhamparry.co.uk/screenshots/$n | xclip -i -selection clipboard'"
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
