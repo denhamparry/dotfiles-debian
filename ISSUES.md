@@ -37,3 +37,4 @@ $ systemcrl reboot
 
 - [How to prevent A2DP skipping](https://unix.stackexchange.com/questions/244478/how-to-prevent-bluetooth-audio-skipping-with-the-a2dp-profile-on-arch-linux)
 - [](https://bbs.archlinux.org/viewtopic.php?id=226813)
+
