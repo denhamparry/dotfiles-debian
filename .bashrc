@@ -131,6 +131,9 @@ export GO111MODULE=on
 # go-jira
 eval "$(jira --completion-script-bash)"
 
+# rust
+source "$HOME/.cargo/env"
+
 # disable system bell
 if [ -n "$DISPLAY" ]; then
   xset b off
