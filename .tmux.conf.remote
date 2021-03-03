@@ -1,0 +1,6 @@
+# Tmux remote when using Tmux on remote host
+# Create ~/.tmux.conf
+
+unbind C-b
+set-option -g prefix C-a
+bind-key C-a send-prefix

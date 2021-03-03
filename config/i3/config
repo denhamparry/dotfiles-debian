@@ -43,7 +43,7 @@ bindsym $mod+d exec $menu
 
 # spotify: no border
 for_window [class="^Spotify$"] border none
-for_window [class="^Spotify Premium$"] border none<
+for_window [class="^Spotify Premium$"] border none
 
 # change focus
 bindsym $mod+Left focus left
