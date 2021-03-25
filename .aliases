@@ -174,7 +174,9 @@ alias notify-on='notify-send "DUNST_COMMAND_RESUME"'
 alias headphones='sudo service bluetooth restart'
 
 # Docker
-alias wipedown-docker="docker system prune -a"
+alias d="docker"
+alias docker-wipedown="docker system prune -a"
+alias docker-permissions="sudo usermod -aG docker $USER"
 
 # Kubernetes
 alias kubedebug="kubectl run -it --rm --restart=Never alpine --image=alpine sh"
