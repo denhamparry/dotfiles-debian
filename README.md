@@ -241,6 +241,8 @@ $ sudo service bluetooth restart
 $ sudo killall pulseaudio
 ```
 
+- [How to use Bluetoothctl](https://gist.github.com/denhamparry/b66b40396d5e4040bea8eb5ef5838021)
+
 #### Troubleshooting
 
 ```bash
@@ -325,3 +327,7 @@ $ sudo systemctl status docker
 $ docker -v
 $ sudo usermod -aG docker $USER
 ```
+
+### Manage VMWare
+
+- [VMWare Kernel Module Not Found](https://gist.github.com/denhamparry/ed3da377cfff4f96c87c7fc66fe16d49)
