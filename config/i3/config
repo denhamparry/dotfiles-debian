@@ -183,7 +183,7 @@ bindsym $mod+r mode "resize"
 # disable tray output
 bar {
         tray_output none
-	font pango:monospace 5
+	font pango:monospace 10
 	status_command $barcmd --config ~/.config/i3/status.conf
 }
 
@@ -194,5 +194,5 @@ exec xrdb -merge $HOME/.Xresources
 exec xrdb -merge $HOME/.Xdefaults
 
 # Scrolling like a mac, scrolling like a mac... SNOOP
-exec --no-startup-id synclient HorizEdgeScroll=1 VertEdgeScroll=1 VertScrollDelta=-60
+exec --no-startup-id synclient HorizEdgeScroll=1 VertEdgeScroll=1 VertScrollDelta=-60R
 
