@@ -209,6 +209,8 @@ alias pubkey="more ~/.ssh/id_rsa_yubikey.pub | xclip -selection clipboard | echo
 
 # Network
 alias network="nmtui"
+alias wifi-off="nmcli radio wifi off"
+alias wifi-on="nmcli radio wifi on"
 
 #  _____ ___  ____   ___  
 # |_   _/ _ \|  _ \ / _ \ 
