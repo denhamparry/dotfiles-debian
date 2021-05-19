@@ -209,3 +209,146 @@ if hash git &>/dev/null ; then
 		git diff --no-index --color-words "$@"
 	}
 fi
+
+
+extract () {
+    local PV=$(command -v pv || echo cat);
+    if [ -f "${1}" ]; then
+        case "${1}" in
+            *.tar.xz)
+                tar xvf "${1}"
+            ;;
+            *.tar.gz)
+                "${PV}" "${1}" | tar xzf - --totals
+            ;;
+            *.tar.bz2 | *.tbz)
+                tar xvjf "${1}"
+            ;;
+            *.bz2)
+                bunzip2 "${1}"
+            ;;
+            *.rar)
+                unrar x "${1}"
+            ;;
+            *.gz)
+                gunzip "${1}"
+            ;;
+            *.tar)
+                tar xvf "${1}"
+            ;;
+            *.tbz2)
+                tar xvjf "${1}"
+            ;;
+            *.tgz)
+                tar xvzf "${1}"
+            ;;
+            *.zip)
+                unzip "${1}"
+            ;;
+            *.Z)
+                uncompress "${1}"
+            ;;
+            *.7z)
+                7z x "${1}"
+            ;;
+            *)
+                echo "don't know how to extract '$1'..."
+            ;;
+        esac;
+    else
+        echo "'$1' is not a valid file";
+    fi
+}
+
+#  _          _               _           
+# | | ___   _| |__   ___  ___(_)_ __ ___  
+# | |/ / | | | '_ \ / _ \/ __| | '_ ` _ \ 
+# |   <| |_| | |_) |  __/\__ \ | | | | | |
+# |_|\_\\__,_|_.__/ \___||___/_|_| |_| |_|
+                                        
+ks-root ()
+{
+    ( _bash_safe_mode;
+    local __KS_USER="${__KS_USER:-root}";
+    local SSH_BRUTE="-o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null";
+    DIR=$(mktemp -d);
+    cd "${DIR}";
+    export -f extract;
+    ls --color=tty -t1 ~/Downloads/simulator-*.tar.gz | head -n1 | xargs -I{} bash -c "tar xzvf '{}'";
+    local SHORTCUTS;
+    SHORTCUTS=$(awk "/^Host/{print \"ssh ${SSH_BRUTE} root@\"\$3\"\t # \" \$2}" ./cp_simulator_config     | grep -v bastion || true);
+    if [[ "${SHORTCUTS:-}" == "" ]]; then
+        echo "# shortcuts not possible, is root trust bundle downloaded?" 1>&2;
+    else
+        echo "${SHORTCUTS}";
+    fi;
+    cat <<EOF
+kubectl get pods --all-namespaces
+
+EOF
+
+    ssh -A -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes -F ./cp_simulator_config "${__KS_USER}"@bastion -i cp_simulator_rsa ${@:-} )
+}
+
+
+
+_bash_safe_mode() {
+  set -Eeuo pipefail
+  IFS=$'\n\t' # Split words on \n\t rather than spaces
+}
+
+ks-play () {
+	__KS_USER=ubuntu ks-root
+}
+
+#  _          _                          _            
+# | | ___   _| |__   ___ _ __ _ __   ___| |_ ___  ___ 
+# | |/ / | | | '_ \ / _ \ '__| '_ \ / _ \ __/ _ \/ __|
+# |   <| |_| | |_) |  __/ |  | | | |  __/ ||  __/\__ \
+# |_|\_\\__,_|_.__/ \___|_|  |_| |_|\___|\__\___||___/
+
+highlight() {
+    local IFS="|"
+    local IPV6_REGEX="[\w:]+:+[\w:]+"
+
+    grep -iE --color=auto '^|((error|fail|info|warning|warn|unauthorized|start|success|succeed|'${IPV6_REGEX}'|'${*:-$}')\w*)' 2>/dev/null \
+        || cat
+}
+
+klog () {
+    {
+        set -o pipefail;
+        local NAMESPACE;
+        if [[ "${*}" =~ --?n(amespace)?\s*=* ]]; then
+            NAMESPACE="";
+        else
+            if [[ "${K8S_NAMESPACE:-}" != "" ]]; then
+                NAMESPACE="--namespace=${K8S_NAMESPACE}";
+            else
+                NAMESPACE="--all-namespaces";
+            fi;
+        fi;
+        local EXCLUDE="(panics.go:76|leaderelection.go:247)";
+        stern ${NAMESPACE} --color always --since 25m "${@:-.}" \
+        --exclude="${EXCLUDE}" | highlight
+    }
+}
+
+kev () {
+    {
+        set -o pipefail;
+        local OUTPUT='--output="custom-columns=NAMESPACE:.metadata.namespace,NAME:.involvedObject.name,KIND:.involvedObject.kind,LASTSEEN:.lastTimestamp,COUNT:.count,REASON:.reason,MESSAGE:.message"';
+        local NAMESPACE;
+        if [[ "${@}" =~ --?n(amespace)?[\ =] ]]; then
+            NAMESPACE="";
+        else
+            if [[ "${K8S_NAMESPACE:-}" != "" ]]; then
+                NAMESPACE="--namespace=${K8S_NAMESPACE}";
+            else
+                NAMESPACE="--all-namespaces";
+            fi;
+        fi;
+        echo kubectl get events ${NAMESPACE} ${OUTPUT} "${@}" | source /dev/stdin | head -n1;
+        echo kubectl get events ${NAMESPACE} ${OUTPUT} --watch --no-headers=true "${@}" | source /dev/stdin | stdbuf -e0 -i0 -o0 tail -n+2
+    }
+}
