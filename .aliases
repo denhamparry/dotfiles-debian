@@ -212,6 +212,9 @@ alias network="nmtui"
 alias wifi-off="nmcli radio wifi off"
 alias wifi-on="nmcli radio wifi on"
 
+# Slack Theme
+alias slack-dracula-theme="echo #282A36,#44475A,#44475A,#8BE9FD,#6272A4,#FFFFFF,#50FA7B,#FF5555"
+
 #  _____ ___  ____   ___  
 # |_   _/ _ \|  _ \ / _ \ 
 #   | || | | | | | | | | |

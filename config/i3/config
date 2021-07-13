@@ -5,7 +5,8 @@
 set $mod Mod4
 set $term /usr/bin/kitty tmux attach
 set $lockcmd i3lock
-set $menu rofi -show drun -theme "solarized_alternate"
+set $menu rofi -show drun
+# set $menu dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p '/'
 set $barcmd i3status
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -41,7 +42,8 @@ bindsym $mod+Shift+q kill
 # start dmenu (a program launcher)
 bindsym $mod+d exec $menu
 
-# spotify: no border
+# no border
+for_window [class="^Google-chrome$"] border none
 for_window [class="^Spotify$"] border none
 for_window [class="^Spotify Premium$"] border none
 
@@ -178,17 +180,36 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+client.background       #F8F8F2
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 # disable tray output
 bar {
         tray_output none
 	font pango:monospace 10
+        colors {
+                background #282A36
+                statusline #F8F8F2
+                separator  #44475A      
+                focused_workspace  #44475A #44475A #F8F8F2
+                active_workspace   #282A36 #44475A #F8F8F2
+                inactive_workspace #282A36 #282A36 #BFBFBF
+                urgent_workspace   #FF5555 #FF5555 #F8F8F2
+                binding_mode       #FF5555 #FF5555 #F8F8F2
+        }
 	status_command $barcmd --config ~/.config/i3/status.conf
 }
 
 # Set desktop background
-exec --no-startup-id feh --bg-scale ~/Pictures/background.jpg
+exec --no-startup-id feh --bg-scale ~/Pictures/background.png
 
 exec xrdb -merge $HOME/.Xresources
 exec xrdb -merge $HOME/.Xdefaults
