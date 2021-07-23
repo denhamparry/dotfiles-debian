@@ -66,6 +66,11 @@ install_dotfiles() {
 	make install update-vundle
 }
 
+# Install Starship for nice looking prompt
+install_starship(){
+	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+}
+
 usage() {
 	echo -e "install.sh\\n\\tThis script installs my basic setup for a debian laptop\\n"
 	echo "Usage:"

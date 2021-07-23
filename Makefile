@@ -24,6 +24,7 @@ dotfiles: ## Installs the dotfiles.
 	ln -sfn $(CURDIR)/background.jpg $(HOME)/Pictures/background.jpg
 	ln -sfn $(CURDIR)/config/i3/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/dunst/ $(HOME)/.config/;
+	ln -sfn $(CURDIR)/config/starship/starship.toml $(HOME)/.config/;
 
 .PHONY: test
 test: shellcheck ## Runs all the tests on the files in the repository.
