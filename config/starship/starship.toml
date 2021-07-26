@@ -1,8 +1,21 @@
+# Colours - https://draculatheme.com/contribute
+# #282A36 - Background
+# #44475A - Current Line
+# #f8f8f2 - Foreground
+# #6272A4 - Comment
+# #8BE9FD - Cyan
+# #50fa7b - Green
+# #ffb86c - Orange
+# #ff79c6 - Pink
+# #bd93f9 - Purple
+# #ff5555 - Red
+# #f1fa8c - Yellow
+
 # Use custom format
 format = """
-[┌───────────────────>](bold green)
-[│](bold green)$all
-[└─>](bold green) """
+[┌───────────────────>](#ffb86c)
+[│](#ffb86c)$all
+[└─>](#ffb86c) """
 
 # Wait 10 milliseconds for starship to check files under the current directory.
 scan_timeout = 10
@@ -10,8 +23,8 @@ scan_timeout = 10
 # Disable the blank line at the start of the prompt
 add_newline = false
 
-[kubernetes]
-format = 'on [⛵ $context \($namespace\)](dimmed green)'
-disabled = false
-[kubernetes.context_aliases]
-"dev.local.cluster.k8s" = "dev"
+# [kubernetes]
+# format = 'on [⛵ $context \($namespace\)](dimmed green)'
+# disabled = false
+# [kubernetes.context_aliases]
+# "dev.local.cluster.k8s" = "dev"
