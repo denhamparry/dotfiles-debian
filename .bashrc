@@ -88,9 +88,6 @@ export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # shellcheck source=/dev/null
-source "${HOME}/.vim/bundle/gruvbox/gruvbox_256palette.sh"
-
-# shellcheck source=/dev/null
 source <(kitty + complete setup bash)
 
 # shellcheck source=/dev/null
@@ -132,3 +129,4 @@ complete -C /usr/local/bin/terraform terraform
 # starship
 eval "$(starship init bash)"
 
+source <(spt --completions bash)
