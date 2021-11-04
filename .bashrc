@@ -72,7 +72,6 @@ gpg-connect-agent updatestartuptty /bye > /dev/null
 SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
-
 # TODO add dockerfunc once tested
 for file in ~/.{aliases,functions,path,extra,exports}; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
@@ -130,3 +129,6 @@ complete -C /usr/local/bin/terraform terraform
 eval "$(starship init bash)"
 
 source <(spt --completions bash)
+
+# dotenv
+eval "$(direnv hook bash)"
