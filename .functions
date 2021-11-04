@@ -193,6 +193,10 @@ git-fetch-all() {
 	git pull --all
 }
 
+git-prune-all() {
+    git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D
+}
+
 cleanhistory() {
   # history -n has to be there before history -w to read from
   # .bash_history the commands saved from any other terminal,
