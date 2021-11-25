@@ -3,7 +3,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $term /usr/bin/kitty tmux attach
+set $term /usr/bin/kitty # tmux attach # uncomment to load tmux by default
 set $lockcmd i3lock
 set $menu rofi -show drun
 # set $menu dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p '/'
