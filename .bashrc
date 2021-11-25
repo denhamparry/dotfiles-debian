@@ -98,12 +98,6 @@ source <(doctl completion bash)
 # shellcheck source=/dev/null
 source "${HOME}/.local/bin/virtualenvwrapper.sh"
 
-# go
-export GO111MODULE=on
-
-# go-jira
-eval "$(jira --completion-script-bash)"
-
 # rust
 source "$HOME/.cargo/env"
 
