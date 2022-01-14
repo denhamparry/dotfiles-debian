@@ -15,5 +15,6 @@
 	fix-commit = commit --edit --file=.git/COMMIT_EDITMSG
 	lg = !git log --graph --pretty=oneline --abbrev-commit
 	logs = log --show-signature
+	commit-fix = commit --edit --file=.git/COMMIT_EDITMSG
 [init]
 	defaultBranch = main
