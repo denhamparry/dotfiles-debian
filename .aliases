@@ -221,7 +221,7 @@ alias slack-dracula-theme="echo #282A36,#44475A,#44475A,#8BE9FD,#6272A4,#FFFFFF,
 alias find-os="cat /etc/os-release"
 
 # Kitty
-alias ssh="kitty +kitten ssh"
+alias kssh="kitty +kitten ssh"
 
 #  _____ ___  ____   ___  
 # |_   _/ _ \|  _ \ / _ \ 
