@@ -86,7 +86,14 @@ setup_sources() {
 	deb-src http://deb.debian.org/debian/ bullseye-updates main non-free contrib
 	EOF
 
-	## Google apt repository
+	# Docker
+	
+	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+ 	 echo \
+	"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+	$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null	
+
+	# Google apt repository
 	cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
 	deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
 	EOF
@@ -115,8 +122,11 @@ base() {
 		ca-certificates \
 		cgroupfs-mount \
 		compton \
+		containerd.io \
 		coreutils \
 		curl \
+		docker-ce \
+		docker-ce-cli \
 		direnv \
 		dnsutils \
 		ffmpeg \
