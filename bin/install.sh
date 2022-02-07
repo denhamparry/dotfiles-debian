@@ -92,107 +92,93 @@ setup_sources() {
 
 }
 
-base_min() {
-	apt update || true
-	apt -y upgrade
-
-	apt install -y \
-		adduser \
-		automake \
-		autorandr \
-		bash-completion \
-		bc \
-		bzip2 \
-		ca-certificates \
-		coreutils \
-		curl \
-		dnsutils \
-		file \
-		findutils \
-		gcc \
-		git \
-		gnupg \
-		gnupg2 \
-		grep \
-		gzip \
-		hostname \
-		htop \
-		indent \
-		iotop \
-		iptables \
-		jq \
-		less \
-		libc6-dev \
-		locales \
-		lsof \
-		make \
-		mount \
-		net-tools \
-		nodejs \
-		npm \
-		policykit-1 \
-		screenkey \
-		silversearcher-ag \
-		ssh \
-		strace \
-		sudo \
-		tar \
-		tree \
-		tzdata \
-		unzip \
-		vim \
-		xz-utils \
-		zip \
-		--no-install-recommends
-
-	apt autoremove
-	apt autoclean
-	apt clean
-
-	install_scripts
-}
-
 base() {
 
 	apt update || true
 	apt -y upgrade
 
 	apt install -y \
+		adduser \
 		apparmor \
+		automake \
+		autorandr \
+		bash-completion \
+		bc \
 		bridge-utils \
+		bzip2 \
+		ca-certificates \
 		cgroupfs-mount \
 		compton \
-		forensics-all \
+		coreutils \
+		curl \
+		dnsutils \
 		ffmpeg \
+		file \
+		findutils \
+		forensics-all \
 		fwupd \
 		fwupdate \
+		gcc \
 		gettext \
+		git \
 		git-crypt \
+		gnupg \
 		gnupg-agent \
+		gnupg2 \
 		graphviz \
+		grep \
+		gzip \
+		hostname \
 		hplip \
-		iwd \
+		htop \
 		imagemagick \
+		indent \
+		iotop \
+		iptables \
+		iwd \
+		jq \
 		kitty \
+		less \
 		libapparmor-dev \
+		libc6-dev \
 		libimobiledevice6 \
 		libltdl-dev \
 		libnotify-bin \
 		libpam-systemd \
 		libseccomp-dev \
+		locales \
+		lsof \
+		make \
+		mount \
 		neovim \
-		nfs-common
+		net-tools \
+		nfs-common \
+		nodejs \
+		npm \
 		obs-studio \
 		parallel \
 		pinentry-curses \
 		playerctl \
+		policykit-1 \
 		progress \
 		python3-pip \
 		scdaemon \
 		screenfetch \
+		screenkey \
 		shellcheck \
+		silversearcher-ag \
+		ssh \
+		strace \
+		sudo \
 		systemd \
+		tar \
 		tmux \
+		tree \
+		tzdata \
+		unzip \
+		vim \
+		xz-utils \
+		zip \
 		--no-install-recommends
 
 	apt autoremove
@@ -229,27 +215,6 @@ install_scripts() {
 	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 	unzip awscliv2.zip
 	sudo ./aws/install
-
-	# install hadolint
-	curl -sSL https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64 > /usr/local/bin/hadolint
-	chmod +x /usr/local/bin/hadolint
-
-	# install conftest
-	wget https://github.com/open-policy-agent/conftest/releases/download/v0.21.0/conftest_0.21.0_Linux_x86_64.tar.gz
-	tar xzf conftest_0.21.0_Linux_x86_64.tar.gz
-	sudo mv conftest /usr/local/bin
-
-	# Hashicorp
-	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-	sudo apt-get update && sudo apt-get install vault
-
-	local scripts=( have light )
-
-	for script in "${scripts[@]}"; do
-		curl -sSL "https://misc.j3ss.co/binaries/$script" > "/usr/local/bin/${script}"
-		chmod +x "/usr/local/bin/${script}"
-	done
 }
 
 usage() {
