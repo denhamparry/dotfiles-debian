@@ -81,8 +81,8 @@ done
 unset file
 
 # fzf setup
-# shellcheck source=/dev/null
 export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+# shellcheck source=/dev/null
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # shellcheck source=/dev/null
@@ -98,16 +98,16 @@ fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
+# shellcheck source=/dev/null
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# shellcheck source=/dev/null
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 #exercism
 if [ -f ~/.config/exercism/exercism_completion.bash ]; then
+  # shellcheck source=/dev/null
   source ~/.config/exercism/exercism_completion.bash
 fi
-
-# terraform
-complete -C /usr/local/bin/terraform terraform
 
 [ -x "$(command -v starship)" ] && eval "$(starship init bash)" || echo "Install starship"
 [ -x "$(command -v direnv)" ] && eval "$(direnv hook bash)" || echo "Install direnv"

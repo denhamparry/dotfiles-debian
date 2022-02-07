@@ -273,6 +273,7 @@ main() {
 		get_user
 		setup_sudo
 	elif [[ $cmd == "base" ]]; then
+		check_is_sudo
 		setup_sources
 		base
 	elif [[ $cmd == "scripts" ]]; then
