@@ -206,6 +206,7 @@ install_scripts() {
 	chmod +x /usr/local/bin/lolcat
 
 	# install fzf
+	[ -f "$HOME/.fzf" ] && "$HOME"/.fzf/uninstall && rm ~/.fzf
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install
 
