@@ -86,6 +86,12 @@ setup_sources() {
 	deb-src http://deb.debian.org/debian/ bullseye-updates main non-free contrib
 	EOF
 
+	## Google apt repository
+	cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
+	deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+	EOF
+	wget -O- https://dl.google.com/linux/linux_signing_key.pub |gpg --dearmor > /etc/apt/trusted.gpg.d/google.gpg
+
 	# turn off translations, speed up apt update
 	mkdir -p /etc/apt/apt.conf.d
 	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
@@ -126,6 +132,7 @@ base() {
 		gnupg \
 		gnupg-agent \
 		gnupg2 \
+		google-chrome-stable \
 		graphviz \
 		grep \
 		gzip \
