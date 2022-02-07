@@ -21,6 +21,7 @@ dotfiles: ## Installs the dotfiles.
 	ln -sfn $(CURDIR)/config/git/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
 	ln -sfn $(CURDIR)/bin $(HOME)/bin
+	mkdir -p $(HOME)/Pictures
 	ln -sfn $(CURDIR)/background.jpg $(HOME)/Pictures/background.jpg
 	ln -sfn $(CURDIR)/config/i3/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/dunst/ $(HOME)/.config/;
