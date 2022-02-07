@@ -63,7 +63,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
 # manage gpg keys
 GPG_TTY="$(tty)"
 export GPG_TTY

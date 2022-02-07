@@ -1,21 +1,3 @@
 #!/bin/sh
 
-# update path
-export PATH=/usr/local/bin:${PATH}:/sbin
-
-# add rust path
-export PATH="${HOME}/.cargo/bin:${PATH}"
-
-# add dotfiles bin path
-export PATH="${HOME}/bin:${PATH}"
-
-# Krew
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
-# The next line updates PATH for the Google Cloud SDK.
-# shellcheck source=/dev/null
-if [ -f "${HOME}/google-cloud-sdk/path.bash.inc" ]; then . "${HOME}/google-cloud-sdk/path.bash.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-# shellcheck source=/dev/null
-if [ -f "${HOME}/google-cloud-sdk/completion.bash.inc" ]; then . "${HOME}/google-cloud-sdk/completion.bash.inc"; fi
+export PATH=/usr/local/bin:${PATH}:/sbin:${HOME}/bin:${PATH}
