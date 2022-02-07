@@ -87,19 +87,13 @@ export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # shellcheck source=/dev/null
-source <(kitty + complete setup bash)
+[ -x "$(command -v kitty)" ] && source <(kitty + complete setup bash) || echo "Install kitty"
 
 # shellcheck source=/dev/null
-source <(kubectl completion bash)
+[ -x "$(command -v kubectl)" ] && source <(kubectl completion bash) || echo "Install kubectl"
 
 # shellcheck source=/dev/null
-source <(doctl completion bash)
-
-# shellcheck source=/dev/null
-source "${HOME}/.local/bin/virtualenvwrapper.sh"
-
-# rust
-source "$HOME/.cargo/env"
+[ -x "$(command -v doctl)" ] && source <(doctl completion bash) || echo "Install doctl"
 
 # disable system bell
 if [ -n "$DISPLAY" ]; then
@@ -119,10 +113,5 @@ fi
 # terraform
 complete -C /usr/local/bin/terraform terraform
 
-# starship
-eval "$(starship init bash)"
-
-source <(spt --completions bash)
-
-# dotenv
-eval "$(direnv hook bash)"
+[ -x "$(command -v starship)" ] && eval "$(starship init bash)" || echo "Install starship"
+[ -x "$(command -v direnv)" ] && eval "$(direnv hook bash)" || echo "Install direnv"
