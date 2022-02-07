@@ -91,9 +91,6 @@ export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f
 # shellcheck source=/dev/null
 [ -x "$(command -v kubectl)" ] && source <(kubectl completion bash) || echo "Install kubectl"
 
-# shellcheck source=/dev/null
-[ -x "$(command -v doctl)" ] && source <(doctl completion bash) || echo "Install doctl"
-
 # disable system bell
 if [ -n "$DISPLAY" ]; then
   xset b off
