@@ -1,5 +1,5 @@
 .PHONY: all
-all: bin usr dotfiles  ## Installs the bin and etc directory files and the dotfiles.
+all: bin dotfiles #usr ## Installs the bin and the dotfiles.
 
 .PHONY: bin
 bin: ## Installs the bin directory files.
@@ -12,19 +12,53 @@ bin: ## Installs the bin directory files.
 .PHONY: dotfiles
 dotfiles: ## Installs the dotfiles.
 	# add aliases for dotfiles
-	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".git" -not -name ".*.swp" -not -name ".gnupg" -not -name "ln" -not -name "scripts" ); do \
+	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".git" -not -name ".config" -not -name ".github" -not -name ".*.swp" -not -name ".gnupg"); do \
 		f=$$(basename $$file); \
 		ln -sfn $$file $(HOME)/$$f; \
 	done; \
-	mkdir -p $(HOME)/.gnupg && mkdir -p $(HOME)/.config && mkdir -p $(HOME)/Pictures && mkdir -p $(HOME)/review;
+	# gpg
 	gpg --list-keys || true;
+	mkdir -p $(HOME)/.gnupg
+	for file in $(shell find $(CURDIR)/.gnupg); do \
+		f=$$(basename $$file); \
+		ln -sfn $$file $(HOME)/.gnupg/$$f; \
+	done; \
+	# git
+	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
+	git update-index --skip-worktree $(CURDIR)/.gitconfig;
+	# config
+	mkdir -p $(HOME)/.config
 	ln -sfn $(CURDIR)/config/git/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
-	ln -sfn $(CURDIR)/bin $(HOME)/bin
+	# bash
+	ln -snf $(CURDIR)/.bash_profile $(HOME)/.profile;
+	# fonts
+	mkdir -p $(HOME)/.local/share;
+	ln -snf $(CURDIR)/.fonts $(HOME)/.local/share/fonts;
+	# pictures
+	mkdir -p $(HOME)/Pictures
 	ln -sfn $(CURDIR)/background.jpg $(HOME)/Pictures/background.jpg
+	
+	xrdb -merge $(HOME)/.Xdefaults || true
+	xrdb -merge $(HOME)/.Xresources || true
+	fc-cache -f -v || true
+
+dotfiles-review: ## Review for dotfiles.
+	
 	ln -sfn $(CURDIR)/config/i3/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/dunst/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/starship/starship.toml $(HOME)/.config/;
+
+	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
+	git update-index --skip-worktree $(CURDIR)/.gitconfig;
+	ln -snf $(CURDIR)/.i3 $(HOME)/.config/sway;
+	if [ -f /usr/local/bin/pinentry ]; then \
+		sudo ln -snf /usr/bin/pinentry /usr/local/bin/pinentry; \
+	fi;
+	mkdir -p $(HOME)/.config/fontconfig;
+	ln -snf $(CURDIR)/.config/fontconfig/fontconfig.conf $(HOME)/.config/fontconfig/fontconfig.conf;
+
+
 
 .PHONY: usr
 usr: ## Installs the usr directory files.
