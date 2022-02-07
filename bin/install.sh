@@ -191,27 +191,38 @@ base() {
 
 # install custom scripts/binaries
 install_scripts() {
-	# install speedtest
-	curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py  > /usr/local/bin/speedtest
-	chmod +x /usr/local/bin/speedtest
 
-	# install icdiff
-	curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/icdiff > /usr/local/bin/icdiff
-	curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/git-icdiff > /usr/local/bin/git-icdiff
-	chmod +x /usr/local/bin/icdiff
-	chmod +x /usr/local/bin/git-icdiff
+	# prep directory
+	mkdir -p /tmp/scripts
 
-	# install lolcat
-	curl -sSL https://raw.githubusercontent.com/tehmaze/lolcat/master/lolcat > /usr/local/bin/lolcat
-	chmod +x /usr/local/bin/lolcat
+	# download binaries
+	curl -sSL https://raw.githubusercontent.com/tehmaze/lolcat/master/lolcat > /tmp/scripts/lolcat
+	curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py  > /tmp/scripts/speedtest
+	curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/icdiff > /tmp/scripts/icdiff
+	curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/git-icdiff > /tmp/scripts/git-icdiff
+
+	# set to executable and move to bin
+	sudo chmod +x /tmp/scripts/*
+	sudo mv /tmp/scripts/* /usr/local/bin/
 
 	# install fzf
-	[ -f "$HOME/.fzf" ] && "$HOME"/.fzf/uninstall && rm ~/.fzf
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	if [ -d "$HOME/.fzf" ] 
+	then
+		git -C "$HOME/.fzf" pull
+	else
+		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	fi
 	~/.fzf/install
+	
 
 	# install tmux plugin manager
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+	if [ -d "$HOME/.tmux/plugins/tpm" ] 
+	then
+		git -C "$HOME/.tmux/plugins/tpm" pull
+	else
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	fi
 
 	# install aws cli
 	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
