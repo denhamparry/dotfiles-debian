@@ -240,6 +240,9 @@ install_scripts() {
 	echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
 	sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 	kubectl version --client
+
+	# starship
+	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 }
 
 usage() {
@@ -276,4 +279,3 @@ main "$@"
 
 
 # google-cloud-sdk
-# kubectl
