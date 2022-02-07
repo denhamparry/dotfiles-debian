@@ -247,13 +247,9 @@ main() {
 		get_user
 		setup_sudo
 	elif [[ $cmd == "base" ]]; then
-		check_is_sudo
-		get_user
 		setup_sources
 		base
 	elif [[ $cmd == "scripts" ]]; then
-		check_is_sudo
-		get_user
 		install_scripts
 	else
 		usage
