@@ -37,7 +37,7 @@ dotfiles: ## Installs the dotfiles.
 	ln -snf $(CURDIR)/.fonts $(HOME)/.local/share/fonts;
 	# pictures
 	mkdir -p $(HOME)/Pictures
-	ln -sfn $(CURDIR)/background.jpg $(HOME)/Pictures/background.jpg
+	ln -sfn $(CURDIR)/background.png $(HOME)/Pictures/background.png
 	
 	xrdb -merge $(HOME)/.Xdefaults || true
 	xrdb -merge $(HOME)/.Xresources || true
