@@ -219,7 +219,7 @@ install_scripts() {
 	else
 		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	fi
-	~/.fzf/install
+	echo y | ~/.fzf/install
 	
 
 	# install tmux plugin manager
@@ -231,21 +231,11 @@ install_scripts() {
 		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 	fi
 
-	# install aws cli
-	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-	unzip awscliv2.zip
-	if [[ -x "$(command -v aws)" ]]
-	then
-		sudo ./aws/install --update
-	else
-		sudo ./aws/install
-	fi
-
 	# kubectl
-	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-	curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-	echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
-	sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" > /tmp/scripts/kubctl
+	curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256" > /tmp/scripts/kubctl.sha256
+	echo "$(</tmp/scripts/kubctl.sha256)  /tmp/scripts/kubctl" | sha256sum --check
+	sudo install -o root -g root -m 0755 /tmp/scripts/kubctl /usr/local/bin/kubectl
 	kubectl version --client
 
 	# starship

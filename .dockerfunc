@@ -50,6 +50,12 @@ terraform(){
 		${DOCKER_REPO_PREFIX}/terraform "$@"
 }
 
+aws(){
+	docker run --rm -it \
+	-v "${HOME}/.aws/:${HOME}/.aws/:rw" \
+	amazon/aws-cli "$@"
+}
+
 # terragrunt(){
 # 	docker run -it --rm \
 # 		-v "${HOME}:${HOME}:ro" \
