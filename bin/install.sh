@@ -111,6 +111,7 @@ base() {
 		compton \
 		coreutils \
 		curl \
+		direnv \
 		dnsutils \
 		ffmpeg \
 		file \
