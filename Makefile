@@ -1,5 +1,5 @@
 .PHONY: all
-all: bin dotfiles## Installs the bin and etc directory files and the dotfiles.
+all: bin usr dotfiles  ## Installs the bin and etc directory files and the dotfiles.
 
 .PHONY: bin
 bin: ## Installs the bin directory files.
@@ -16,16 +16,23 @@ dotfiles: ## Installs the dotfiles.
 		f=$$(basename $$file); \
 		ln -sfn $$file $(HOME)/$$f; \
 	done; \
-	mkdir -p $(HOME)/.gnupg && mkdir -p $(HOME)/.config;
+	mkdir -p $(HOME)/.gnupg && mkdir -p $(HOME)/.config && mkdir -p $(HOME)/Pictures && mkdir -p $(HOME)/review;
 	gpg --list-keys || true;
 	ln -sfn $(CURDIR)/config/git/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
 	ln -sfn $(CURDIR)/bin $(HOME)/bin
-	mkdir -p $(HOME)/Pictures
 	ln -sfn $(CURDIR)/background.jpg $(HOME)/Pictures/background.jpg
 	ln -sfn $(CURDIR)/config/i3/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/dunst/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/starship/starship.toml $(HOME)/.config/;
+
+.PHONY: usr
+usr: ## Installs the usr directory files.
+	for file in $(shell find $(CURDIR)/usr -type f -not -name ".*.swp"); do \
+		f=$$(echo $$file | sed -e 's|$(CURDIR)||'); \
+		sudo mkdir -p $$(dirname $$f); \
+		sudo ln -f $$file $$f; \
+	done
 
 .PHONY: test
 test: shellcheck ## Runs all the tests on the files in the repository.
