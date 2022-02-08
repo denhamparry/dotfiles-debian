@@ -104,6 +104,12 @@ setup_sources() {
 	sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 	rm -f packages.microsoft.gpg
 
+	# Zulip
+	sudo curl -fL -o /etc/apt/trusted.gpg.d/zulip-desktop.asc \
+    https://download.zulip.com/desktop/apt/zulip-desktop.asc
+	echo "deb https://download.zulip.com/desktop/apt stable main" | \
+    sudo tee /etc/apt/sources.list.d/zulip-desktop.list
+
 	# turn off translations, speed up apt update
 	mkdir -p /etc/apt/apt.conf.d
 	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
@@ -207,6 +213,7 @@ base() {
 		vim \
 		xz-utils \
 		zip \
+		zulip \
 		--no-install-recommends
 
 	apt autoremove
