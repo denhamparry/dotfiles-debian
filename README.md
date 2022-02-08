@@ -3,6 +3,14 @@
 This Dotfiles repo is linked to a Debian 11 installation. This document is a
 step by step guide to setting up the machine to use the Dotfiles.
 
+## Checklist
+
+- [ ] Google Chrome
+  - [ ] GitHub
+- [ ] 1Password
+- [ ] Keybase
+- [ ] Signal
+
 ## Setup existing YubiKey
 
 - Insert YubiKey and USB drive with copy of public key
@@ -73,47 +81,3 @@ Connection to github.com closed.
 - [YubiKey Guide](https://github.com/drduh/YubiKey-Guide)
 - [OpenPGP smartcard under GNOME on Debian 10 Buster](https://blog.josefsson.org/tag/scdaemon/)
 - [SSH Github](https://help.github.com/en/github/authenticating-to-github/testing-your-ssh-connection)
-
-### Setup Bluetooth Headphones
-
-```bash
-sudo apt install pulseaudio pulseaudio-module-bluetooth pavucontrol bluez-firmware
-sudo service bluetooth restart
-sudo killall pulseaudio
-```
-
-- [How to use Bluetoothctl](https://gist.github.com/denhamparry/b66b40396d5e4040bea8eb5ef5838021)
-
-#### Troubleshooting
-
-```bash
-sudo cat << EOF >> /var/lib/gdm3/.config/pulse/client.conf
-autospawn = no
-daemon-binary = /bin/true
-EOF
-sudo chown Debian-gdm:Debian-gdm /var/lib/gdm3/.config/pulse/client.conf
-rm /var/lib/gdm3/.config/systemd/user/sockets.target.wants/pulseaudio.socket
-sudo cat << EOF >> /etc/pulse/default.pa
-load-module module-switch-on-connect
-EOF
-sudo cat << EOF >> /var/lib/gdm3/.config/pulse/default.pa
-#!/usr/bin/pulseaudio -nF
-#
-
-# load system wide configuration
-.include /etc/pulse/default.pa
-
-### unload driver modules for Bluetooth hardware
-.ifexists module-bluetooth-policy.so
-  unload-module module-bluetooth-policy
-.endif
-
-.ifexists module-bluetooth-discover.so
-  unload-module module-bluetooth-discover
-.endif
-EOF
-```
-
-#### References
-
-- [a2dp](https://wiki.debian.org/BluetoothUser/a2dp)

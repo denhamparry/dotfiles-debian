@@ -122,6 +122,7 @@ base() {
 		autorandr \
 		bash-completion \
 		bc \
+		bluez-firmware \
 		bridge-utils \
 		bzip2 \
 		ca-certificates \
@@ -181,10 +182,13 @@ base() {
 		npm \
 		obs-studio \
 		parallel \
+		pavucontrol \
 		pinentry-curses \
 		playerctl \
 		policykit-1 \
 		progress \
+		pulseaudio \
+		pulseaudio-module-bluetooth \
 		python3-pip \
 		scdaemon \
 		screenfetch \
