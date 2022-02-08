@@ -258,6 +258,11 @@ install_scripts() {
 
 	# starship
 	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+
+	# keybase
+	curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
+	sudo apt install ./keybase_amd64.deb
+	rm -rf keybase_amd64.deb
 }
 
 usage() {
