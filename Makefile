@@ -30,6 +30,10 @@ dotfiles: ## Installs the dotfiles.
 	mkdir -p $(HOME)/.config
 	ln -sfn $(CURDIR)/config/git/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
+	ln -sfn $(CURDIR)/config/i3/ $(HOME)/.config/;
+	ln -sfn $(CURDIR)/config/dunst/ $(HOME)/.config/;
+	ln -sfn $(CURDIR)/config/kitty/ $(HOME)/.config/;
+	ln -sfn $(CURDIR)/config/starship/starship.toml $(HOME)/.config/;
 	# bash
 	ln -snf $(CURDIR)/.bash_profile $(HOME)/.profile;
 	# fonts
@@ -44,21 +48,11 @@ dotfiles: ## Installs the dotfiles.
 	fc-cache -f -v || true
 
 dotfiles-review: ## Review for dotfiles.
-	
-	ln -sfn $(CURDIR)/config/i3/ $(HOME)/.config/;
-	ln -sfn $(CURDIR)/config/dunst/ $(HOME)/.config/;
-	ln -sfn $(CURDIR)/config/starship/starship.toml $(HOME)/.config/;
-
-	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
-	git update-index --skip-worktree $(CURDIR)/.gitconfig;
-	ln -snf $(CURDIR)/.i3 $(HOME)/.config/sway;
 	if [ -f /usr/local/bin/pinentry ]; then \
 		sudo ln -snf /usr/bin/pinentry /usr/local/bin/pinentry; \
 	fi;
 	mkdir -p $(HOME)/.config/fontconfig;
 	ln -snf $(CURDIR)/.config/fontconfig/fontconfig.conf $(HOME)/.config/fontconfig/fontconfig.conf;
-
-
 
 .PHONY: usr
 usr: ## Installs the usr directory files.
