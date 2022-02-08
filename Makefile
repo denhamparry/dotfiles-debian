@@ -32,6 +32,7 @@ dotfiles: ## Installs the dotfiles.
 	ln -sfn $(CURDIR)/config/gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
 	ln -sfn $(CURDIR)/config/i3/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/dunst/ $(HOME)/.config/;
+	ln -sfn $(CURDIR)/config/rofi/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/kitty/ $(HOME)/.config/;
 	ln -sfn $(CURDIR)/config/starship/starship.toml $(HOME)/.config/;
 	# bash
