@@ -3,19 +3,6 @@
 This Dotfiles repo is linked to a Debian 11 installation. This document is a
 step by step guide to setting up the machine to use the Dotfiles.
 
-## Install Keybase
-
-```bash
-wget https://prerelease.keybase.io/keybase_amd64.deb
-sudo apt install ./keybase_amd64.deb
-rm keybase_amd64.deb
-run_keybase
-```
-
-### References
-
-- [How to install Keybase](https://keybase.io/docs/the_app/install_linux)
-
 ## Setup existing YubiKey
 
 - Insert YubiKey and USB drive with copy of public key
