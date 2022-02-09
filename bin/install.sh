@@ -115,7 +115,6 @@ base() {
 
 	apt update || true
 	apt -y upgrade
-
 	apt install -y \
 		adduser \
 		apparmor \
@@ -128,6 +127,7 @@ base() {
 		bzip2 \
 		ca-certificates \
 		cgroupfs-mount \
+		cryptsetup \
 		code-insiders \
 		compton \
 		containerd.io \
@@ -136,6 +136,7 @@ base() {
 		docker-ce \
 		docker-ce-cli \
 		direnv \
+		dirmngr \
 		dnsutils \
 		ffmpeg \
 		file \
@@ -154,6 +155,7 @@ base() {
 		graphviz \
 		grep \
 		gzip \
+		hopenpgp-tools \
 		hostname \
 		hplip \
 		htop \
@@ -184,7 +186,10 @@ base() {
 		obs-studio \
 		parallel \
 		pavucontrol \
+		pcscd \
 		pinentry-curses \
+		pinentry-gtk2 \
+		pinentry-tty \
 		playerctl \
 		policykit-1 \
 		progress \
@@ -194,6 +199,7 @@ base() {
 		scdaemon \
 		screenfetch \
 		screenkey \
+		secure-delete \
 		shellcheck \
 		silversearcher-ag \
 		ssh \
@@ -206,7 +212,9 @@ base() {
 		tzdata \
 		unzip \
 		vim \
+		wget \
 		xz-utils \
+		yubikey-personalization \
 		zip \
 		--no-install-recommends
 
