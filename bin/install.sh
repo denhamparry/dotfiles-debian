@@ -208,7 +208,6 @@ base() {
 		vim \
 		xz-utils \
 		zip \
-		# zulip blocked in bullseye: issue https://github.com/zulip/zulip-desktop/issues/1168
 		--no-install-recommends
 
 	apt autoremove
