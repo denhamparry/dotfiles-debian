@@ -152,6 +152,7 @@ base() {
 		gnupg-agent \
 		gnupg2 \
 		google-chrome-stable \
+		google-cloud-sdk \
 		graphviz \
 		grep \
 		gzip \
@@ -310,6 +311,3 @@ main() {
 }
 
 main "$@"
-
-
-# google-cloud-sdk
