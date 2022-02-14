@@ -214,6 +214,7 @@ base() {
 		unzip \
 		vim \
 		wget \
+		xsel \
 		xz-utils \
 		yubikey-personalization \
 		zip \
