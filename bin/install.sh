@@ -199,6 +199,7 @@ base() {
 		pulseaudio \
 		pulseaudio-module-bluetooth \
 		python3-pip \
+		rofi \
 		scdaemon \
 		screenfetch \
 		screenkey \
