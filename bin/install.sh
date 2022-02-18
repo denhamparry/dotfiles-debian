@@ -139,6 +139,7 @@ base() {
 		direnv \
 		dirmngr \
 		dnsutils \
+		feh \
 		ffmpeg \
 		file \
 		findutils \
