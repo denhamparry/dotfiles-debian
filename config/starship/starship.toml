@@ -1,30 +1,25 @@
-# Colours - https://draculatheme.com/contribute
-# #282A36 - Background
-# #44475A - Current Line
-# #f8f8f2 - Foreground
-# #6272A4 - Comment
-# #8BE9FD - Cyan
-# #50fa7b - Green
-# #ffb86c - Orange
-# #ff79c6 - Pink
-# #bd93f9 - Purple
-# #ff5555 - Red
-# #f1fa8c - Yellow
+[aws]
+style = "bold #ffb86c"
 
-# Use custom format
-format = """
-[┌───────────────────>](#ffb86c)
-[│](#ffb86c)$all
-[└─>](#ffb86c) """
+[character]
+error_symbol = "[λ](bold #ff5555)"
+success_symbol = "[λ](bold #f8f8f2)"
 
-# Wait 10 milliseconds for starship to check files under the current directory.
-scan_timeout = 10
+[cmd_duration]
+style = "bold #f1fa8c"
 
-# Disable the blank line at the start of the prompt
-add_newline = false
+[directory]
+style = "bold #50fa7b"
 
-# [kubernetes]
-# format = 'on [⛵ $context \($namespace\)](dimmed green)'
-# disabled = false
-# [kubernetes.context_aliases]
-# "dev.local.cluster.k8s" = "dev"
+[git_branch]
+style = "bold #ff79c6"
+
+[git_status]
+style = "bold #ff5555"
+
+[hostname]
+style = "bold #ff5555"
+
+[username]
+format = "[$user]($style) on "
+style_user = "bold #bd93f9"
