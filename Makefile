@@ -63,6 +63,12 @@ usr: ## Installs the usr directory files.
 		sudo ln -f $$file $$f; \
 	done
 
+.PHONY: vim
+vim: ## Setup Vim configuration
+	git clone https://github.com/denhamparry/.vim.git $(HOME)/.vim
+	ln -sf $(HOME)/.vim/vimrc $(HOME)/.vimrc
+	cd $(HOME)/.vim
+
 .PHONY: test
 test: shellcheck ## Runs all the tests on the files in the repository.
 
