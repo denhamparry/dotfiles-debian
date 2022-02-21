@@ -273,7 +273,6 @@ install_scripts() {
 	
 
 	# install tmux plugin manager
-
 	if [ -d "$HOME/.tmux/plugins/tpm" ] 
 	then
 		git -C "$HOME/.tmux/plugins/tpm" pull
@@ -299,12 +298,37 @@ install_scripts() {
 	rm -rf keybase_amd64.deb
 }
 
+install_themes() {
+
+	# prep directory
+	mkdir -p /tmp/themes
+	mkdir -p /tmp/themes/gtk
+
+	# download binaries
+	curl -sSL https://github.com/dracula/gtk/archive/master.zip > /tmp/themes/gtk.zip
+	unzip -o /tmp/themes/gtk.zip -d /tmp/themes/gtk/
+
+	sudo cp -r /tmp/themes/gtk/gtk-master/ /usr/share/themes/Dracula/
+
+	# prep directory
+	mkdir -p /tmp/icons
+	mkdir -p /tmp/icons/gtk
+
+	# download binaries
+	curl -sSL https://github.com/dracula/gtk/files/5214870/Dracula.zip > /tmp/icons/gtk.zip
+	unzip -o /tmp/icons/gtk.zip -d /tmp/icons/gtk/
+
+	sudo cp -r /tmp/icons/gtk/Dracula/ /usr/share/icons/
+
+}
+
 usage() {
 	echo -e "install.sh\\n Repeatable setup\\n"
 	echo "Usage:"
 	echo "  sudo                                - setup user for sudo"
 	echo "  base                                - setup sources & install base pkgs"
 	echo "  scripts                             - install scripts"
+	echo "  themes								- install themese"
 }
 
 main() {
@@ -325,6 +349,9 @@ main() {
 		base
 	elif [[ $cmd == "scripts" ]]; then
 		install_scripts
+	elif [[ $cmd == "themes" ]]; then
+		check_is_sudo
+		install_themes
 	else
 		usage
 	fi
