@@ -187,6 +187,7 @@ base() {
 		libseccomp-dev \
 		locales \
 		lsof \
+		lxappearance \
 		make \
 		mount \
 		neovim \
