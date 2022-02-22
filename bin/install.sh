@@ -317,9 +317,15 @@ install_themes() {
 	# download binaries
 	curl -sSL https://github.com/dracula/gtk/files/5214870/Dracula.zip > /tmp/icons/gtk.zip
 	unzip -o /tmp/icons/gtk.zip -d /tmp/icons/gtk/
-
 	sudo cp -r /tmp/icons/gtk/Dracula/ /usr/share/icons/
 
+	# GRUB
+	mkdir -p ~/git/dracula/
+	mkdir -p /boot/grub/themes/dracula
+	git clone https://github.com/dracula/grub.git ~/git/dracula/grub/
+	sudo cp -r ~/git/dracula/grub/dracula/* /boot/grub/themes/dracula
+	echo "GRUB_THEME=\"/boot/grub/themes/dracula/theme.txt\"" >> /etc/default/grub
+	sudo grub-mkconfig -o /boot/grub/grub.cfg
 }
 
 usage() {
