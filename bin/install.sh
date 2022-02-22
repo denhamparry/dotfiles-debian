@@ -196,6 +196,7 @@ base() {
 		lxappearance \
 		make \
 		mount \
+		neofetch \
 		neovim \
 		net-tools \
 		nfs-common \
