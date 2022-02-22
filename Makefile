@@ -25,6 +25,7 @@ dotfiles: ## Installs the dotfiles.
 	done; \
 	# git
 	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
+	ln -fn $(CURDIR)/gitconfig $(HOME)/.gitconfig;
 	git update-index --skip-worktree $(CURDIR)/.gitconfig;
 	# config
 	mkdir -p $(HOME)/.config
