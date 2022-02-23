@@ -198,6 +198,7 @@ base() {
 		lxappearance \
 		make \
 		mount \
+		ncdu \
 		neofetch \
 		neovim \
 		net-tools \
