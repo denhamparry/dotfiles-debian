@@ -217,6 +217,7 @@ base() {
 		pulseaudio \
 		pulseaudio-module-bluetooth \
 		python3-pip \
+		rclone \
 		rofi \
 		scdaemon \
 		screenfetch \
