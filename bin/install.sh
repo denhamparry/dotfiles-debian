@@ -232,6 +232,7 @@ base() {
 		tar \
 		tmux \
 		tree \
+		thunar \
 		tzdata \
 		unzip \
 		vim \
