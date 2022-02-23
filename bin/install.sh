@@ -143,6 +143,7 @@ base() {
 		bzip2 \
 		ca-certificates \
 		cgroupfs-mount \
+		cifs-utils \
 		cryptsetup \
 		code-insiders \
 		compton \
