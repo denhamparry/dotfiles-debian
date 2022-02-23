@@ -85,45 +85,38 @@ setup_sources() {
 	EOF
 
 	# Docker
-	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
- 	echo \
-	"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-	$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null	
+	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --batch --yes --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+ 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-	# Google apt repository
-	cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
-	deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
-	EOF
-	wget -O- https://dl.google.com/linux/linux_signing_key.pub |gpg --dearmor > /etc/apt/trusted.gpg.d/google.gpg
+	# Google Chrome
+ 	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list > /dev/null
+	wget -O- https://dl.google.com/linux/linux_signing_key.pub | gpg --batch --yes --dearmor > /etc/apt/trusted.gpg.d/google.gpg
 
-	# GCloud apt repository
-	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+	# Google Cloud SDK
+	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 
 	# VS Code
-	wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+	wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --batch --yes --dearmor > packages.microsoft.gpg
 	sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 	sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 	rm -f packages.microsoft.gpg
 
-	# turn off translations, speed up apt update
-	mkdir -p /etc/apt/apt.conf.d
-	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
-
 	#1Password
-	curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+	curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --batch --yes --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
 	echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
 	sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
 	curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
 	sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
-	curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+	curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --batch --yes --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
 
-	wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
-	cat signal-desktop-keyring.gpg | sudo tee -a /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+	# Signal
+	curl -sS https://updates.signal.org/desktop/apt/keys.asc | sudo gpg --batch --yes --dearmor --output /usr/share/keyrings/signal-desktop-keyring.gpg
+	echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' | sudo tee /etc/apt/sources.list.d/signal-xenial.list
 
-	echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
-	sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
-	rm -rf signal-desktop-keyring.gpg
+	# turn off translations, speed up apt update
+	mkdir -p /etc/apt/apt.conf.d
+	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
 }
 
 base() {
@@ -296,7 +289,7 @@ install_scripts() {
 	cd -
 
 	# starship
-	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+	sudo bin/install-starship.sh -y
 
 	# keybase
 	curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
@@ -340,7 +333,8 @@ usage() {
 	echo "  sudo                                - setup user for sudo"
 	echo "  base                                - setup sources & install base pkgs"
 	echo "  scripts                             - install scripts"
-	echo "  themes								- install themese"
+	echo "  themes				    - install themes"
+	echo "  all				    - install everything"
 }
 
 main() {
@@ -360,9 +354,16 @@ main() {
 		setup_sources
 		base
 	elif [[ $cmd == "scripts" ]]; then
+		check_is_sudo
 		install_scripts
 	elif [[ $cmd == "themes" ]]; then
 		check_is_sudo
+		install_themes
+	elif [[ $cmd == "all" ]]; then
+		check_is_sudo
+		setup_sources
+		base
+		install_scripts
 		install_themes
 	else
 		usage
