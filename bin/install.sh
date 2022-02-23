@@ -123,6 +123,7 @@ setup_sources() {
 
 	echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
 	sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+	rm -rf signal-desktop-keyring.gpg
 }
 
 base() {
