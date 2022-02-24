@@ -11,3 +11,5 @@ bin/rbac-tool
 bin/terraform
 bin/exercism
 config/i3/logfile
+config/i3/status.conf
+config/i3/config
