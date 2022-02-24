@@ -114,6 +114,10 @@ setup_sources() {
 	curl -sS https://updates.signal.org/desktop/apt/keys.asc | sudo gpg --batch --yes --dearmor --output /usr/share/keyrings/signal-desktop-keyring.gpg
 	echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' | sudo tee /etc/apt/sources.list.d/signal-xenial.list
 
+	# Tailscale
+	curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+	curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+
 	# turn off translations, speed up apt update
 	mkdir -p /etc/apt/apt.conf.d
 	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
@@ -224,6 +228,7 @@ base() {
 		strace \
 		sudo \
 		systemd \
+		tailscale \
 		tar \
 		tmux \
 		tree \
