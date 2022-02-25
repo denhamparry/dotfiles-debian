@@ -304,8 +304,8 @@ install_scripts() {
 	# op
 	curl -LO https://cache.agilebits.com/dist/1P/op/pkg/v1.12.4/op_linux_amd64_v1.12.4.zip
 	unzip op_linux_amd64_v1.12.4.zip
-	gpg --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
-	gpg --verify op.sig op
+	# sudo gpg --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
+	# sudo gpg --verify op.sig op
 	sudo mv op /usr/local/bin
 	op --version
 	rm op_linux_amd64_v1.12.4.zip
