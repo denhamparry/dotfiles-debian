@@ -163,6 +163,7 @@ base() {
 		gettext \
 		git \
 		git-crypt \
+		gnome-keyring \
 		gnupg \
 		gnupg-agent \
 		gnupg2 \
@@ -220,6 +221,7 @@ base() {
 		scdaemon \
 		screenfetch \
 		screenkey \
+		seahorse \
 		secure-delete \
 		shellcheck \
 		signal-desktop \
