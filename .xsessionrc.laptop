@@ -26,8 +26,9 @@ fi
 # run local xhost
 xhost local:root
 
-# use laptop by default
-autorandr laptop
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
+xrandr --dpi 96
 
 # uncomment this if not using a login manager
 # so i3 will start correctly
