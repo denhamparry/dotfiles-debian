@@ -20,7 +20,7 @@ order += "disk /"
 order += "run_watch Docker"
 #order += "run_watch DHCP"
 #order += "ipv6"
-order += "wireless wlp82s0"
+order += "wireless wlan0"
 order += "ethernet enx0050b696b7d9"
 # order += "volume master"
 order += "battery 0"
@@ -28,7 +28,7 @@ order += "battery 0"
 order += "load"
 order += "tztime local"
 
-wireless wlp82s0 {
+wireless wlan0 {
 	format_up = "W: (%quality at %essid) %ip"
 	format_down = "W: down"
 }
