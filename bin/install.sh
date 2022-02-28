@@ -176,6 +176,7 @@ base() {
 		hostname \
 		hplip \
 		htop \
+		i3lock-fancy \
 		imagemagick \
 		indent \
 		iotop \
