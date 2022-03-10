@@ -204,7 +204,6 @@ base() {
 		nfs-common \
 		nodejs \
 		npm \
-		obs-studio \
 		parallel \
 		pavucontrol \
 		pcscd \
@@ -251,6 +250,22 @@ base() {
 	apt clean
 
 	pip install legit
+}
+
+# Create media section
+
+media() {
+	
+	apt update || true
+	apt -y upgrade
+	apt install -y \
+		haruna \
+		kdenlive \
+		obs-studio \
+		--no-install-recommends
+	apt autoremove
+	apt autoclean
+	apt clean
 }
 
 # install custom scripts/binaries
@@ -350,9 +365,10 @@ usage() {
 	echo "Usage:"
 	echo "  sudo                                - setup user for sudo"
 	echo "  base                                - setup sources & install base pkgs"
+	echo "  media                               - setup media pkgs"
 	echo "  scripts                             - install scripts"
-	echo "  themes				    - install themes"
-	echo "  all				    - install everything"
+	echo "  themes                              - install themes"
+	echo "  all                                 - install everything"
 }
 
 main() {
@@ -371,6 +387,10 @@ main() {
 		check_is_sudo
 		setup_sources
 		base
+	elif [[ $cmd == "media" ]]; then
+		check_is_sudo
+		setup_sources
+		media
 	elif [[ $cmd == "scripts" ]]; then
 		check_is_sudo
 		install_scripts
