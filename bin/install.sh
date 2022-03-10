@@ -118,6 +118,11 @@ setup_sources() {
 	curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 	curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 
+	# VirtualBox
+	curl -sS https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo gpg --batch --yes --dearmor --output /usr/share/keyrings/virtualbox-2016-keyring.gpg
+	curl -sS https://www.virtualbox.org/download/oracle_vbox.asc | sudo gpg --batch --yes --dearmor --output /usr/share/keyrings/virtualboxkeyring.gpg
+	echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bullseye contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+
 	# turn off translations, speed up apt update
 	mkdir -p /etc/apt/apt.conf.d
 	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
@@ -238,6 +243,7 @@ base() {
 		tzdata \
 		unzip \
 		vim \
+		virtualbox-6.1 \
 		wget \
 		xsel \
 		xz-utils \
@@ -328,6 +334,12 @@ install_scripts() {
 	op --version
 	rm op_linux_amd64_v1.12.4.zip
 	rm op.sig
+
+	# vagrant
+	curl -O https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb
+	sudo apt install ./vagrant_2.2.19_x86_64.deb
+	rm -rf vagrant_2.2.19_x86_64.deb
+
 }
 
 install_themes() {
