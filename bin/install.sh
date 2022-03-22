@@ -168,6 +168,7 @@ base() {
 		gettext \
 		git \
 		git-crypt \
+		git-lfs \
 		gnome-keyring \
 		gnupg \
 		gnupg-agent \
@@ -220,6 +221,7 @@ base() {
 		progress \
 		pulseaudio \
 		pulseaudio-module-bluetooth \
+		python \
 		python3-pip \
 		rclone \
 		rofi \
