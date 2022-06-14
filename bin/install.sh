@@ -224,6 +224,7 @@ base() {
 		python \
 		python3-pip \
 		rclone \
+		ripgrep \
 		rofi \
 		scdaemon \
 		screenfetch \
