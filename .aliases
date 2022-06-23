@@ -228,6 +228,11 @@ alias kssh="kitty +kitten ssh"
 alias sleep-off="sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target"
 alias sleep-on="sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
 
+# Vim
+alias vim="nvim"
+alias vi="nvim"
+alias v="nvim"
+
 #  _____ ___  ____   ___  
 # |_   _/ _ \|  _ \ / _ \ 
 #   | || | | | | | | | | |
