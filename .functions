@@ -356,3 +356,8 @@ kev () {
         echo kubectl get events ${NAMESPACE} ${OUTPUT} --watch --no-headers=true "${@}" | source /dev/stdin | stdbuf -e0 -i0 -o0 tail -n+2
     }
 }
+
+# https://dns.toys
+function dy { dig +noall +answer +additional "$1" @dns.toys; }
+
+
