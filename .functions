@@ -360,4 +360,7 @@ kev () {
 # https://dns.toys
 function dy { dig +noall +answer +additional "$1" @dns.toys; }
 
-
+function pulseaudio-reset {
+	pulseaudio -k
+	pulseaudio --start
+}
